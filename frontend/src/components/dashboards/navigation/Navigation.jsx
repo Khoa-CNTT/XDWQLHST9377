@@ -5,6 +5,7 @@ import LayersIcon from "@mui/icons-material/Layers";
 import PersonIcon from "@mui/icons-material/Person";
 import AppsIcon from "@mui/icons-material/Apps";
 import HomeIcon from "@mui/icons-material/Home";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 
 export const NAVIGATION = [
   {
@@ -12,8 +13,8 @@ export const NAVIGATION = [
     title: "Main",
   },
   {
-    segment: "dashboard",
-    title: "Dashboard",
+    segment: "overview",
+    title: "Overview",
     icon: <DashboardIcon />,
   },
   {
@@ -39,6 +40,11 @@ export const NAVIGATION = [
         icon: <PersonIcon />,
       },
       {
+        segment: "parents",
+        title: "Parents",
+        icon: <PersonIcon />,
+      },
+      {
         segment: "teachers",
         title: "Teachers",
         icon: <PersonIcon />,
@@ -51,8 +57,11 @@ export const NAVIGATION = [
     ],
   },
   {
-    segment: "integrations",
-    title: "Integrations",
-    icon: <LayersIcon />,
+    segment: "bills",
+    title: "Bills",
+    icon: <ReceiptIcon />,
+  },
+  {
+    kind: "divider",
   },
 ];
