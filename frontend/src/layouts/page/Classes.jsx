@@ -87,7 +87,7 @@ function EditToolbar(props) {
   );
 }
 
-export default function ManageAccounts() {
+export default function ManageClasses() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
 

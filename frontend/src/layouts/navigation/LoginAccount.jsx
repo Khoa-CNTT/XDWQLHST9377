@@ -3,9 +3,9 @@ import * as React from "react";
 export const useSession = () => {
   const [session, setSession] = React.useState({
     user: {
-      name: "Bharat Kashyap",
-      email: "bharatkashyap@outlook.com",
-      image: "https://avatars.githubusercontent.com/u/19550456",
+      name: "Harry Nguyen",
+      email: "",
+      image: "./src/assets/imgs/avatar.jpg",
     },
   });
 
@@ -14,9 +14,9 @@ export const useSession = () => {
       signIn: () => {
         setSession({
           user: {
-            name: "Bharat Kashyap",
-            email: "bharatkashyap@outlook.com",
-            image: "https://avatars.githubusercontent.com/u/19550456",
+            name: "Harry Nguyen",
+            email: "",
+            image: "./src/assets/imgs/avatar.jpg",
           },
         });
       },

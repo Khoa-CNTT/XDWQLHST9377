@@ -7,7 +7,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 import HomeIcon from "@mui/icons-material/Home";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
-export const NAVIGATION = [
+export const NavMenu = [
   {
     kind: "header",
     title: "Main",

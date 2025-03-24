@@ -10,22 +10,9 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import { demoTheme } from "../themes/Theme";
-import { NAVIGATION } from "./navigation/Navigation";
-import PageContent from "./page/Pagecontent";
-import { useSession } from "./navigation/Account";
-
-// function CustomAppTitle() {
-//   return (
-//     <Stack direction="row" alignItems="center" spacing={2}>
-//       <CloudCircleIcon fontSize="large" color="primary" />
-//       <Typography variant="h6">My App</Typography>
-//       <Chip size="small" label="BETA" color="info" />
-//       <Tooltip title="Connected to production">
-//         <CheckCircleIcon color="success" fontSize="small" />
-//       </Tooltip>
-//     </Stack>
-//   );
-// }
+import { NavMenu } from "./navigation/SidebarMenu";
+import PageContent from "./Pagecontent";
+import { useSession } from "../layouts/navigation/LoginAccount";
 
 function DashboardLayoutBasic() {
   const router = useDemoRouter("/dashboard");
@@ -41,15 +28,11 @@ function DashboardLayoutBasic() {
         title: "DASHBOARD",
         homeUrl: "/toolpad/core/introduction",
       }}
-      navigation={NAVIGATION}
+      navigation={NavMenu}
       router={router}
       theme={demoTheme}
     >
-      <DashboardLayout
-      // slots={{
-      //   appTitle: CustomAppTitle,
-      // }}
-      >
+      <DashboardLayout>
         <PageContent pathname={router.pathname} />
       </DashboardLayout>
     </AppProvider>
