@@ -1,4 +1,4 @@
-import DashboardLayoutBasic from "./components/dashboards/Dashboard";
+import DashboardLayoutBasic from "./layouts/Dashboard";
 
 function App() {
   return <DashboardLayoutBasic />;

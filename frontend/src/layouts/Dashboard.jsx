@@ -9,7 +9,7 @@ import { Typography } from "@mui/material";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
-import { demoTheme } from "./themes/Theme";
+import { demoTheme } from "../themes/Theme";
 import { NAVIGATION } from "./navigation/Navigation";
 import PageContent from "./page/Pagecontent";
 import { useSession } from "./navigation/Account";
