@@ -1,6 +1,9 @@
-package com.example.TanKhoaLearningCenterBE.product.modal;
+package com.example.TanKhoaLearningCenterBE.dto;
 
+import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 public class ProductDTO {
@@ -9,7 +12,7 @@ public class ProductDTO {
     private String description;
     private Double price;
 
-    public ProductDTO(Product product) {
+    public ProductDTO(ProductEntity product) {
         this.id = product.getId();
         this.name = product.getName();
         this.description = product.getDescription();

@@ -1,9 +1,9 @@
-package com.example.TanKhoaLearningCenterBE.product.Services;
+package com.example.TanKhoaLearningCenterBE.service;
 
-import com.example.TanKhoaLearningCenterBE.Query;
-import com.example.TanKhoaLearningCenterBE.product.ProductRespository;
-import com.example.TanKhoaLearningCenterBE.product.modal.Product;
-import com.example.TanKhoaLearningCenterBE.product.modal.ProductDTO;
+import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
+import com.example.TanKhoaLearningCenterBE.utils.Query;
+import com.example.TanKhoaLearningCenterBE.repository.ProductRespository;
+import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,10 @@ public class GetProductService implements Query<Integer, ProductDTO> {
 
     @Override
     public ResponseEntity<ProductDTO> execute(Integer input) {
-        Optional<Product> productOptional = productRespository.findById(input);
-        if (productOptional.isPresent()){
-            return ResponseEntity.ok(new ProductDTO(productOptional.get()));
-        }
+        Optional<ProductEntity> productOptional = productRespository.findById(input);
+        return productOptional.map(productEntity -> ResponseEntity.ok(new ProductDTO(productEntity))).orElse(null);
 
         //In the future we will want to throw exeptional if we can find id
 
-        return null;
     }
 }

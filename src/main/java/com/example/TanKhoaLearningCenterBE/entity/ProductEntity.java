@@ -1,4 +1,4 @@
-package com.example.TanKhoaLearningCenterBE.product.modal;
+package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="product")
-public class Product {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

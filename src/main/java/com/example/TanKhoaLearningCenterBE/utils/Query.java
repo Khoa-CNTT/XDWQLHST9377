@@ -1,7 +1,7 @@
-package com.example.TanKhoaLearningCenterBE;
+package com.example.TanKhoaLearningCenterBE.utils;
 
 import org.springframework.http.ResponseEntity;
 
-public interface Command <I, O>{
+public interface Query<I, O> {
     ResponseEntity<O> execute(I input);
 }
