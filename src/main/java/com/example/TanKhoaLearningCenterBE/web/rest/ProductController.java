@@ -13,15 +13,16 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
-    private final CreateProductService createProductService;
+    private final ProductService productService;
+//    private final CreateProductService createProductService;
 
-    private final GetProductsService getProductsService;
-
-    private final PutProductService putProductService;
-
-    private final DeleteProductService deleteProductService;
-
-    private final GetProductService getProductService;
+//    private final GetProductsService getProductsService;
+//
+//    private final PutProductService putProductService;
+//
+//    private final DeleteProductService deleteProductService;
+//
+//    private final GetProductService getProductService;
 
 //    public ProductController(CreateProductService createProductService,
 //                             GetProductsService getProductsService,
@@ -37,27 +38,27 @@ public class ProductController {
 
     @PostMapping("/product")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody CreateProductRequest product) {
-        return createProductService.execute(product);
+        return productService.create(product);
     }
 
     @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>>  getProducts(){
-        return getProductsService.execute(null);
+        return productService.getAll();
     }
 
     //new get mapping for find Id
     @GetMapping("/product/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Integer id){
-        return getProductService.execute(id);
+        return productService.get(id);
     }
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<ProductDTO>  updateProduct(@PathVariable Integer id, @RequestBody ProductDTO product){
-        return putProductService.execute(new UpdateProductRequest(id, product));
+    public ResponseEntity<ProductDTO>  updateProduct(@PathVariable Integer id, @RequestBody UpdateProductRequest product){
+        return productService.put(id, product);
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<Void>  deleteProduct(@PathVariable Integer id){
-        return deleteProductService.execute(id);
+    public ResponseEntity<?>  deleteProduct(@PathVariable Integer id){
+        return productService.delete(id);
     }
 }
