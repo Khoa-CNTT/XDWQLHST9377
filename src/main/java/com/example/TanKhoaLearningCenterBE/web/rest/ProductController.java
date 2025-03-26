@@ -14,27 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-//    private final CreateProductService createProductService;
-
-//    private final GetProductsService getProductsService;
-//
-//    private final PutProductService putProductService;
-//
-//    private final DeleteProductService deleteProductService;
-//
-//    private final GetProductService getProductService;
-
-//    public ProductController(CreateProductService createProductService,
-//                             GetProductsService getProductsService,
-//                             PutProductService putProductService,
-//                             DeleteProductService deleteProductService,
-//                             GetProductService getProductService) {
-//        this.createProductService = createProductService;
-//        this.getProductsService = getProductsService;
-//        this.putProductService = putProductService;
-//        this.deleteProductService = deleteProductService;
-//        this.getProductService = getProductService;
-//    }
 
     @PostMapping("/product")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody CreateProductRequest product) {

@@ -18,6 +18,6 @@ public class ProductEntity {
     @Column(name="description")
     private String description;
 
-    @Column(name="quantity")
+    @Column(name="price")
     private Double price;
 }
