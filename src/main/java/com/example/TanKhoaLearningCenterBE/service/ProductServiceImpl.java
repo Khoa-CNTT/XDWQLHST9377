@@ -2,7 +2,8 @@ package com.example.TanKhoaLearningCenterBE.service;
 
 import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
-import com.example.TanKhoaLearningCenterBE.repository.ProductRespository;
+import com.example.TanKhoaLearningCenterBE.exception.ProductNotFoundException;
+import com.example.TanKhoaLearningCenterBE.repository.ProductRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductRespository productRespository;
+    private final ProductRepository productRepository;
 
     @Override
     public ResponseEntity<ProductDTO> create(CreateProductRequest request) {
@@ -24,14 +25,14 @@ public class ProductServiceImpl implements ProductService {
         prod.setName(request.getName());
         prod.setDescription(request.getDescription());
         prod.setPrice(request.getPrice());
-        var saveProduct = productRespository.save(prod);
+        var saveProduct = productRepository.save(prod);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDTO(saveProduct));
     }
 
     @Override
     public ResponseEntity<ProductDTO> put(Integer id, UpdateProductRequest command) {
-        Optional<ProductEntity> productOptional = productRespository.findById(id);
+        Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             ProductEntity prod = productOptional.get();
             if (!command.getName().isBlank()) {
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
                 prod.setPrice(command.getPrice());
             }
 
-            var res = productRespository.save(prod);
+            var res = productRepository.save(prod);
 
             return ResponseEntity.ok(new ProductDTO(res));
         }
@@ -55,25 +56,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<?> delete(Integer id) {
-        Optional<ProductEntity> productOptional = productRespository.findById(id);
+        Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()){
-            productRespository.deleteById(id);
+            productRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return null;
+//        return null;
+        throw new ProductNotFoundException();
     }
 
     @Override
     public ResponseEntity<List<ProductDTO>> getAll() {
-        List<ProductEntity> products = productRespository.findAll();
+        List<ProductEntity> products = productRepository.findAll();
         List<ProductDTO> productDTOs = products.stream().map(ProductDTO::new).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(productDTOs);
     }
 
     @Override
-    public ResponseEntity<ProductDTO> get(Integer id) {
-        Optional<ProductEntity> productOptional = productRespository.findById(id);
-        return productOptional.map(productEntity -> ResponseEntity.ok(new ProductDTO(productEntity))).orElse(null);
+    public ResponseEntity<ProductDTO> get(Integer id){
+        Optional<ProductEntity> productOptional = productRepository.findById(id);
+        if (productOptional.isPresent()){
+            productRepository.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        throw new ProductNotFoundException();
+
+//        return productOptional.map(productEntity -> ResponseEntity.ok(new ProductDTO(productEntity))).orElse(null);
     }
 }
