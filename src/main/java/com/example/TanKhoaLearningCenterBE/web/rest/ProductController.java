@@ -31,6 +31,11 @@ public class ProductController {
         return productService.get(id);
     }
 
+    @GetMapping("/product/search")
+    public ResponseEntity<List<ProductDTO>> searchProductsByName(@RequestParam String name){
+        return productService.search(name);
+    }
+
     @PutMapping("/product/{id}")
     public ResponseEntity<ProductDTO>  updateProduct(@PathVariable Integer id, @RequestBody UpdateProductRequest product){
         return productService.put(id, product);

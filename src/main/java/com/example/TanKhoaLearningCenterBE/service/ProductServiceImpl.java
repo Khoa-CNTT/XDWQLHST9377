@@ -84,4 +84,14 @@ public class ProductServiceImpl implements ProductService {
 
 //        return productOptional.map(productEntity -> ResponseEntity.ok(new ProductDTO(productEntity))).orElse(null);
     }
+
+    @Override
+    public ResponseEntity<List<ProductDTO>> search(String name){
+        List<ProductEntity> productEntityOptional = productRepository.findByNameContaining(name);
+        if (!productEntityOptional.isEmpty()) {
+            productRepository.findByNameContaining(name);
+            return ResponseEntity.ok(productRepository.findByNameContaining(name).stream().map(ProductDTO::new).toList());
+        }
+        return null;
+    }
 }

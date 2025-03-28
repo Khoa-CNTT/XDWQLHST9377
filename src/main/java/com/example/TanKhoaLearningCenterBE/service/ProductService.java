@@ -13,4 +13,5 @@ public interface ProductService {
     ResponseEntity<?> delete(Integer id);
     ResponseEntity<ProductDTO> get(Integer id);
     ResponseEntity<List<ProductDTO>> getAll();
+    ResponseEntity<List<ProductDTO>> search(String input);
 }
