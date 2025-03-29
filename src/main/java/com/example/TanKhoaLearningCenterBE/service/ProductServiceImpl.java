@@ -3,6 +3,7 @@ package com.example.TanKhoaLearningCenterBE.service;
 import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
 import com.example.TanKhoaLearningCenterBE.exception.ProductNotFoundException;
+import com.example.TanKhoaLearningCenterBE.exception.ProductNotFoundWhileSearching;
 import com.example.TanKhoaLearningCenterBE.repository.ProductRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
@@ -61,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
             productRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-//        return null;
+
         throw new ProductNotFoundException();
     }
 
@@ -92,6 +93,7 @@ public class ProductServiceImpl implements ProductService {
             productRepository.findByNameContaining(name);
             return ResponseEntity.ok(productRepository.findByNameContaining(name).stream().map(ProductDTO::new).toList());
         }
-        return null;
+
+        throw new ProductNotFoundWhileSearching();
     }
 }
