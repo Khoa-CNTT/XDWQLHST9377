@@ -30,11 +30,4 @@ public class GlobalExceptionHandler {
     public ErrorReponse handleProductNotValidConstraints(ConstraintViolationException exception){
         return new ErrorReponse(exception.getConstraintViolations().iterator().next().getMessage());
     }
-
-    @ExceptionHandler(ProductNotFoundWhileSearching.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorReponse handleProductNotFoundWhileSearchin(ProductNotFoundWhileSearching exeption){
-        return new ErrorReponse(exeption.getMessage());
-    }
 }
