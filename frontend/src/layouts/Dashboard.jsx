@@ -1,11 +1,5 @@
 import * as React from "react";
-// import Stack from "@mui/material/Stack";
-// import PropTypes from "prop-types";
-// import Chip from "@mui/material/Chip";
-// import Tooltip from "@mui/material/Tooltip";
-// import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-// import CloudCircleIcon from "@mui/icons-material/CloudCircle";
-import { Typography } from "@mui/material";
+// import { Typography } from "@mui/material";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
