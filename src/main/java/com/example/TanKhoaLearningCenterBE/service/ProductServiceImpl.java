@@ -9,6 +9,7 @@ import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<ProductDTO> put(Integer id, UpdateProductRequest command) {
-        logger.info("Excuting " + getClass() + " input " + id + " " + command);
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             ProductEntity prod = productOptional.get();
@@ -71,6 +71,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("productAllCache")
     public ResponseEntity<List<ProductDTO>> getAll() {
         List<ProductEntity> products = productRepository.findAll();
         List<ProductDTO> productDTOs = products.stream().map(ProductDTO::new).toList();
@@ -79,11 +80,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("productCache")
     public ResponseEntity<ProductDTO> get(Integer id){
+        logger.info("Excuting " + getClass() + " input " + id);
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()){
             productRepository.findById(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
+//            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.ok(new ProductDTO(productOptional.get()));
         }
         throw new ProductNotFoundException();
 
