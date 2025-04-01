@@ -7,6 +7,8 @@ import com.example.TanKhoaLearningCenterBE.repository.ProductRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(UpdateProductRequest.class);
 
     @Override
     public ResponseEntity<ProductDTO> create(CreateProductRequest request) {
@@ -32,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<ProductDTO> put(Integer id, UpdateProductRequest command) {
+        logger.info("Excuting " + getClass() + " input " + id + " " + command);
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
             ProductEntity prod = productOptional.get();
