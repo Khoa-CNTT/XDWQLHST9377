@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private static final Logger logger = LoggerFactory.getLogger(UpdateProductRequest.class);
 
     @Override
+    @Cacheable("productCache")
     public ResponseEntity<ProductDTO> create(CreateProductRequest request) {
         var prod = new ProductEntity();
         prod.setName(request.getName());
@@ -36,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("productCache")
     public ResponseEntity<ProductDTO> put(Integer id, UpdateProductRequest command) {
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()) {
@@ -60,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("productCache")
     public ResponseEntity<?> delete(Integer id) {
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()){
@@ -71,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable("productAllCache")
+    @Cacheable("productCache")
     public ResponseEntity<List<ProductDTO>> getAll() {
         List<ProductEntity> products = productRepository.findAll();
         List<ProductDTO> productDTOs = products.stream().map(ProductDTO::new).toList();
@@ -95,6 +98,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable("productCache")
     public ResponseEntity<List<ProductDTO>> search(String name){
         List<ProductEntity> productEntityOptional = productRepository.findByNameContaining(name);
         if (!productEntityOptional.isEmpty()) {
