@@ -1,10 +1,7 @@
 package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -12,6 +9,8 @@ import java.util.UUID;
 @Table(name = "users")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue

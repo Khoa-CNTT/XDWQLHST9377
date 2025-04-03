@@ -1,5 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.config;
 
+import com.example.TanKhoaLearningCenterBE.web.rest.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,14 +38,17 @@ public class SecurityConfiguration {
                 //allows for POST, PUT, GET, DELETE mapping with authorization
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->{
+                    authorize.requestMatchers("/login").permitAll();
                     authorize.requestMatchers("/users").permitAll();
 
                     authorize.anyRequest().authenticated();
                 })
-                .addFilterBefore(
-                        new BasicAuthenticationFilter(authenticationManager(httpSecurity)),
-                         UsernamePasswordAuthenticationFilter.class
-                )
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+        return new JwtAuthenticationFilter();
     }
 }
