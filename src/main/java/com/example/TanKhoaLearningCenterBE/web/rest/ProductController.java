@@ -2,9 +2,11 @@ package com.example.TanKhoaLearningCenterBE.web.rest;
 
 import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import com.example.TanKhoaLearningCenterBE.service.*;
+import com.example.TanKhoaLearningCenterBE.web.rest.reponse.PageResponse;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,9 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductDTO>>  getProducts(){
-        return productService.getAll();
+    public ResponseEntity<PageResponse<ProductDTO>> getProducts(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+                                                                @RequestParam(value = "size", required = false, defaultValue = "10") Integer size){
+        return productService.getAll(page, size);
     }
 
     //new get mapping for find Id
