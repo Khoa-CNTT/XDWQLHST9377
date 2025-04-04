@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 
 import javax.crypto.SecretKey;
@@ -14,7 +15,7 @@ public class JwtUtil {
         return Jwts
                 .builder()
                 .subject(user.getUsername())
-                .expiration(new Date(System.currentTimeMillis() + 300_300))
+                .expiration(new Date(System.currentTimeMillis() + 5000000))
                 .signWith(getSigninKey())
                 .compact();
     }
@@ -38,7 +39,7 @@ public class JwtUtil {
     }
 
     private static SecretKey getSigninKey() {
-        byte[] keyBytes = Decoders.BASE64.decode("yourSecretKeyAndItsMustBeLongEnoughForSecurity");
+        byte[] keyBytes = Decoders.BASE64.decode("6e5f9db3f11f7585ceaeb35550270e36ffd731f3961600dc349a92415cfdfdc7");
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
