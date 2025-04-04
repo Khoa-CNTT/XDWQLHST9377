@@ -26,7 +26,6 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
-
     @Override
     @Cacheable("productCache")
     public ResponseEntity<ProductDTO> create(CreateProductRequest request) {
@@ -72,7 +71,6 @@ public class ProductServiceImpl implements ProductService {
             productRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-
         throw new ProductNotFoundException();
     }
 
@@ -97,12 +95,9 @@ public class ProductServiceImpl implements ProductService {
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()){
             productRepository.findById(id);
-//            return ResponseEntity.status(HttpStatus.OK).build();
             return ResponseEntity.ok(new ProductDTO(productOptional.get()));
         }
         throw new ProductNotFoundException();
-
-//        return productOptional.map(productEntity -> ResponseEntity.ok(new ProductDTO(productEntity))).orElse(null);
     }
 
     @Override
@@ -113,7 +108,6 @@ public class ProductServiceImpl implements ProductService {
             productRepository.findByNameContaining(name);
             return ResponseEntity.ok(productRepository.findByNameContaining(name).stream().map(ProductDTO::new).toList());
         }
-
         throw new ProductNotFoundException();
     }
 }
