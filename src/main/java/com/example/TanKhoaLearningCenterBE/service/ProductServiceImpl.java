@@ -8,8 +8,7 @@ import com.example.TanKhoaLearningCenterBE.web.rest.reponse.PageResponse;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,16 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(UpdateProductRequest.class);
 
     @Override
     @Cacheable("productCache")
@@ -95,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Cacheable("productCache")
     public ResponseEntity<ProductDTO> get(Integer id){
-        logger.info("Excuting " + getClass() + " input " + id);
+        log.info("*** get id: {}", id );
         Optional<ProductEntity> productOptional = productRepository.findById(id);
         if (productOptional.isPresent()){
             productRepository.findById(id);

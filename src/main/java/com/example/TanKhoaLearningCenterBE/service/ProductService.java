@@ -4,7 +4,6 @@ import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import com.example.TanKhoaLearningCenterBE.web.rest.reponse.PageResponse;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
