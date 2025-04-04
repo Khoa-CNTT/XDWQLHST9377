@@ -5,7 +5,5 @@ import com.example.TanKhoaLearningCenterBE.web.rest.request.TransferRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface TransferService{
-    ResponseEntity<?> deduct(BankEntity bankEntity, double amount);
-    ResponseEntity<?> add(BankEntity bankEntity, double amount);
     ResponseEntity<?> execute(TransferRequest transferRequest);
 }

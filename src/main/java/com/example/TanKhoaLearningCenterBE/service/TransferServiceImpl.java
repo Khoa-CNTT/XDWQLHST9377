@@ -33,29 +33,14 @@ public class TransferServiceImpl implements TransferService{
         BankEntity to = toAccount.get();
 
         //add & deduct
-//        add(to, transferRequest.getAmount());
         to.setBalance(to.getBalance() + transferRequest.getAmount());
         bankAccountRepository.save(to);
         //At this point -> have added new money but not checked if enough to tranfer
         log.info("*** After adding, before deducting: ");
         log.info("BankEntity: {}", bankAccountRepository.findByName(to.getName())); //This would be better as a logging statement
-//        deduct(from, transferRequest.getAmount());
         from.setBalance(from.getBalance() - transferRequest.getAmount());
         bankAccountRepository.save(from);
 
         return ResponseEntity.ok("Success");
-    }
-
-    @Override
-    public ResponseEntity<?> add(BankEntity bankEntity, double amount) {
-        return ResponseEntity.ok(bankEntity.getBalance() + amount);
-    }
-
-    @Override
-    public ResponseEntity<?> deduct(BankEntity bankEntity, double amount) {
-        if (bankEntity.getBalance() < amount){
-            throw new RuntimeException("Not enough money");
-        }
-        return ResponseEntity.ok(bankEntity.getBalance() - amount);
     }
 }
