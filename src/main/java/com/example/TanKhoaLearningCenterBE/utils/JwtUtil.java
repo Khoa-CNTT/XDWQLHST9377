@@ -19,7 +19,6 @@ public class JwtUtil {
                 .compact();
     }
 
-
     public static Claims getClaims(String token){
         return Jwts.parser()
                 .setSigningKey(getSigninKey())
@@ -42,5 +41,4 @@ public class JwtUtil {
         byte[] keyBytes = Decoders.BASE64.decode("yourSecretKeyAndItsMustBeLongEnoughForSecurity");
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }

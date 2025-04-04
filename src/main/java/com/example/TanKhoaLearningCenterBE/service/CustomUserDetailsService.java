@@ -1,6 +1,5 @@
 package com.example.TanKhoaLearningCenterBE.service;
 
-import com.example.TanKhoaLearningCenterBE.entity.UserEntity;
 import com.example.TanKhoaLearningCenterBE.repository.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
