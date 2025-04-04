@@ -4,16 +4,21 @@ import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
 import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
 import com.example.TanKhoaLearningCenterBE.exception.ProductNotFoundException;
 import com.example.TanKhoaLearningCenterBE.repository.ProductRepository;
+import com.example.TanKhoaLearningCenterBE.web.rest.reponse.PageResponse;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateProductRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,11 +80,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Cacheable("productCache")
-    public ResponseEntity<List<ProductDTO>> getAll() {
-        List<ProductEntity> products = productRepository.findAll();
-        List<ProductDTO> productDTOs = products.stream().map(ProductDTO::new).toList();
-
-        return ResponseEntity.status(HttpStatus.OK).body(productDTOs);
+    public ResponseEntity<PageResponse<ProductDTO>> getAll(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductEntity> products = productRepository.findAll(pageable);
+        List<ProductDTO> rows = products.getContent().stream().map(ProductDTO::new).toList();
+        var response = new PageResponse<ProductDTO>();
+        response.setCount(products.getTotalElements()); // tong so phan tu
+        response.setRows(rows); // data
+        response.setPage(page);
+        response.setSize(size);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Override
