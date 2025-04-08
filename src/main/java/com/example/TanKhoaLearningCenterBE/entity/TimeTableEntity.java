@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "timeTable")
+@Table(name = "timeTables")
 public class TimeTableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,14 +16,14 @@ public class TimeTableEntity {
     private UUID id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "dayId")
     private List<DayEntity> dayId;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "timeId")
     private List<TimeEntity> timeId;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "classID")
-    private UUID classId;
+    @JoinColumn(name = "classId")
+    private List<ClassEntity> classId;
 }

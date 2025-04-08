@@ -7,13 +7,13 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "Role")
+@Table(name = "roles")
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "roleId")
+    private UUID roleId;
 
-    @Column(name = "name", unique = true, nullable = false)
-    private String name;
+    @Column(name = "roleName", unique = true, nullable = false)
+    private String roleName;
 }

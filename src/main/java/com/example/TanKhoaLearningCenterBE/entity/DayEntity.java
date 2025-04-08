@@ -7,12 +7,12 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "dayoftheweek")
+@Table(name = "days")
 public class DayEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "dayId")
+    private UUID dayId;
 
     @Column(name = "day")
     private String day;

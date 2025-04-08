@@ -7,14 +7,16 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "user_role")
+@Table(name = "userRoles")
 public class UserRoleEntiy {
 
-    @OneToOne
-    @Column(name = "role_id")
-    private UUID userId;
+    @Id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleId")
+    private RoleEntity roleId;
 
-    @OneToOne
-    @Column(name = "account_id")
-    private UUID accountId;
+    @Id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accountId")
+    private UserEntity accountId;
 }

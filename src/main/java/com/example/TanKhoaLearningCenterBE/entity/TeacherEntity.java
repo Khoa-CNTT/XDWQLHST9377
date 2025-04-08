@@ -7,22 +7,22 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "teacher")
+@Table(name = "teachers")
 public class TeacherEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "teacherId")
+    private UUID teacherId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "teacherName")
+    private String teacherName;
 
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    @Column(name = "tphoneNumber")
+    private String tphoneNumber;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "tEmail")
+    private String tEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")

@@ -8,16 +8,16 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "time")
+@Table(name = "times")
 public class TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "timeId")
+    private UUID timeId;
 
-    @Column(name = "time_start")
+    @Column(name = "timeStart")
     private LocalTime timeStart;
 
-    @Column(name = "time_end")
+    @Column(name = "timeEnd")
     private LocalTime timeEnd;
 }

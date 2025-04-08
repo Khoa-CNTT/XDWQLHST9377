@@ -15,8 +15,8 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "accountId")
+    private UUID accountId;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
