@@ -3,6 +3,7 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -13,12 +14,19 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "create_at", nullable = false)
+    private Timestamp createAt;
+
+    @Column(name = "modify_at")
+    private Timestamp modifyAt;
 }
