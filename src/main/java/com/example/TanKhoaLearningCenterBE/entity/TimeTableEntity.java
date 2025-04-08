@@ -23,7 +23,7 @@ public class TimeTableEntity {
     @JoinColumn(name = "id")
     private List<TimeEntity> timeId;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "classID")
-//    private UUID classId;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "classID")
+    private UUID classId;
 }
