@@ -19,6 +19,6 @@ public class UserRoleEntiy {
     private UUID roleId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_accountId")
     private AccountEntity accountIds;
 }
