@@ -26,10 +26,10 @@ public class ParentEntity {
     private String parEmail;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentId")
+    @JoinColumn(name = "studentId")
     private List<StudentEntity> studentIds;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accountId")
-    private AccountEntity accountId;
+    @JoinColumn(name = "account_id")
+    private AccountEntity accountIds;
 }

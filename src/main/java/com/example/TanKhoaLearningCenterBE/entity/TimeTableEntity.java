@@ -16,12 +16,12 @@ public class TimeTableEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "dayId")
+    @Column(name = "day_id", nullable = false)
     private UUID dayId;
 
-    @Column(name = "timeId")
+    @Column(name = "time_id", nullable = false)
     private UUID timeId;
 
-    @Column(name = "classId")
+    @Column(name = "class_id", nullable = false)
     private UUID classId;
 }

@@ -15,7 +15,7 @@ public class CourseEntity {
     @Column(name = "courseId")
     private UUID courseId;
 
-    @Column(name = "courseName")
+    @Column(name = "courseName", nullable = false, unique = true)
     private String courseName;
 
     @Column(name = "description")

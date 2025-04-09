@@ -1,6 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.dto;
 
-import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
+import com.example.TanKhoaLearningCenterBE.entity.old.ProductEntity;
 import lombok.Data;
 
 @Data

@@ -12,11 +12,11 @@ public class UserProfileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "userProfileId")
+    private UUID userProfileId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_id")
     private AccountEntity accountId;
 
     @Column(name = "avatar")

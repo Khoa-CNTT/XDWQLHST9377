@@ -19,7 +19,7 @@ public class AccountEntity {
     @Column(name = "accountId")
     private UUID accountId;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -31,15 +31,19 @@ public class AccountEntity {
     @Column(name = "modify_at")
     private Timestamp modifyAt;
 
-    @OneToOne(mappedBy = "accountId",cascade = CascadeType.ALL)
-    private UserRoleEntiy accountIds;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userRoles_roleId1")
+    private UserRoleEntiy userRoleId;
 
-    @OneToOne(mappedBy = "accountId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "students_studentId")
     private StudentEntity student;
 
-    @OneToOne(mappedBy = "accountId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parents_parentId")
     private ParentEntity parent;
 
-    @OneToOne(mappedBy = "accountId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teachers_teacherId")
     private TeacherEntity teacher;
 }

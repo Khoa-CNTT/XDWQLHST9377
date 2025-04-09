@@ -19,11 +19,11 @@ public class EnrollmentEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
-    private List<StudentEntity> studentId;
+    private List<StudentEntity> studentIds;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "classId")
-    private List<ClassEntity> classId;
+    private List<ClassEntity> classIds;
 
     @Column(name = "createdAt")
     private Timestamp createdAt;

@@ -16,10 +16,10 @@ public class DayEntity {
     @Column(name = "dayId")
     private UUID dayId;
 
-    @Column(name = "day")
+    @Column(name = "day", nullable = false, unique = true)
     private String day;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dayId")
+    @JoinColumn(name = "day_id")
     private List<TimeTableEntity> dayIds;
 }

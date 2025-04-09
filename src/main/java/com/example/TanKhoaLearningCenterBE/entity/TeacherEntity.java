@@ -15,16 +15,16 @@ public class TeacherEntity {
     @Column(name = "teacherId")
     private UUID teacherId;
 
-    @Column(name = "teacherName")
+    @Column(name = "teacherName", nullable = false)
     private String teacherName;
 
-    @Column(name = "tphoneNumber")
+    @Column(name = "tphoneNumber", nullable = false, unique = true)
     private String tphoneNumber;
 
-    @Column(name = "tEmail")
+    @Column(name = "tEmail", nullable = false, unique = true)
     private String tEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "account_Id")
     private AccountEntity accountId;
 }

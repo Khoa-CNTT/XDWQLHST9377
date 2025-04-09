@@ -18,10 +18,10 @@ public class PaymentEntity {
     @Column(name = "paymentId")
     private UUID paymentId;
 
-    @Column(name = "paymentMethod")
+    @Column(name = "paymentMethod", nullable = false)
     private String payMethod;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     @PositiveOrZero(message = "Amount cannot be negative")
     private Long amount;
 
@@ -30,5 +30,5 @@ public class PaymentEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "billId")
-    private List<BillEntity> billId;
+    private List<BillEntity> billIds;
 }

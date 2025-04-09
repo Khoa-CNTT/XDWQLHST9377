@@ -16,14 +16,14 @@ public class ClassEntity {
     @Column(name = "classId")
     private UUID classId;
 
-    @Column(name = "className")
+    @Column(name = "className", nullable = false, unique = true)
     private String className;
 
     @OneToMany(cascade =  CascadeType.ALL)
     @JoinColumn(name = "courseId")
-    private List<CourseEntity> courseId;
+    private List<CourseEntity> courseIds;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "classId")
-    private List<TimeTableEntity> classIds;
+    @JoinColumn(name = "timeTable_id")
+    private List<TimeTableEntity> timeTableIds;
 }

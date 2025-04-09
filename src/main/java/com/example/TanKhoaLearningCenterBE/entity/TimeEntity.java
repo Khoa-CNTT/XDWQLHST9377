@@ -17,13 +17,13 @@ public class TimeEntity {
     @Column(name = "timeId")
     private UUID timeId;
 
-    @Column(name = "timeStart")
+    @Column(name = "timeStart", nullable = false)
     private LocalTime timeStart;
 
-    @Column(name = "timeEnd")
+    @Column(name = "timeEnd", nullable = false)
     private LocalTime timeEnd;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "timeId")
+    @JoinColumn(name = "time_id")
     private List<TimeTableEntity> timeIds;
 }

@@ -20,6 +20,6 @@ public class RoleEntity {
     private String roleName;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "role_id")
     private List<UserRoleEntiy> roleIds;
 }

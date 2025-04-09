@@ -15,10 +15,10 @@ public class UserRoleEntiy {
     @Column(name = "userRoleId")
     private UUID userRoleId;
 
-    @Column(name = "roleId")
+    @Column(name = "roleId1")
     private UUID roleId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accountId")
-    private AccountEntity accountId;
+    @JoinColumn(name = "account_id")
+    private AccountEntity accountIds;
 }

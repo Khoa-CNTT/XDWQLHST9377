@@ -18,9 +18,9 @@ public class AttendanceEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
-    private List<StudentEntity> studentID;
+    private List<StudentEntity> studentIds;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "classId")
-    private List<ClassEntity> classId;
+    private List<ClassEntity> classIds;
 }

@@ -1,7 +1,7 @@
 package com.example.TanKhoaLearningCenterBE.service;
 
 import com.example.TanKhoaLearningCenterBE.dto.ProductDTO;
-import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
+import com.example.TanKhoaLearningCenterBE.entity.old.ProductEntity;
 import com.example.TanKhoaLearningCenterBE.exception.ProductNotFoundException;
 import com.example.TanKhoaLearningCenterBE.repository.ProductRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.reponse.PageResponse;

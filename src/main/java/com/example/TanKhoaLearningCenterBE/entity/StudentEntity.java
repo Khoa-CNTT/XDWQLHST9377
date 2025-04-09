@@ -15,13 +15,16 @@ public class StudentEntity {
     @Column(name = "studentId")
     private UUID studentId;
 
-    @Column(name = "stdPhoneNumber")
+    @Column(name = "stdName", nullable = false)
+    private String stdName;
+
+    @Column(name = "stdPhoneNumber", nullable = false, unique = true)
     private String stdPhoneNumber;
 
-    @Column(name = "stdEmail")
+    @Column(name = "stdEmail", unique = true)
     private String stdEmail;
 
-    @Column(name = "parentId")
+    @Column(name = "parentId", nullable = false)
     private UUID parentId;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -1,6 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.web.rest;
 
-import com.example.TanKhoaLearningCenterBE.entity.ProductEntity;
+import com.example.TanKhoaLearningCenterBE.entity.old.ProductEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
