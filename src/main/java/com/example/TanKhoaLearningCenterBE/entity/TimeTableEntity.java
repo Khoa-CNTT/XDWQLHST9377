@@ -10,20 +10,18 @@ import java.util.UUID;
 @Data
 @Table(name = "timeTables")
 public class TimeTableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private UUID id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dayId")
-    private List<DayEntity> dayId;
+    @Column(name = "dayId")
+    private UUID dayId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "timeId")
-    private List<TimeEntity> timeId;
+    @Column(name = "timeId")
+    private UUID timeId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "classId")
-    private List<ClassEntity> classId;
+    @Column(name = "classId")
+    private UUID classId;
 }

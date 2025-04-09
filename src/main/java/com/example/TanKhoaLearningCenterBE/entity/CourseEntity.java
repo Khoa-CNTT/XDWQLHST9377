@@ -9,6 +9,7 @@ import java.util.UUID;
 @Data
 @Table(name = "courses")
 public class CourseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courseId")

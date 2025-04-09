@@ -3,12 +3,14 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "parents")
 public class ParentEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "parentId")
@@ -22,6 +24,10 @@ public class ParentEntity {
 
     @Column(name = "parEmail")
     private String parEmail;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parentId")
+    private List<StudentEntity> studentIds;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")

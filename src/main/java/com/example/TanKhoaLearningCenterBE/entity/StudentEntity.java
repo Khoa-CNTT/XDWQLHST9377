@@ -3,7 +3,6 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,9 +21,8 @@ public class StudentEntity {
     @Column(name = "stdEmail")
     private String stdEmail;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentId")
-    private List<ParentEntity> parentId;
+    @Column(name = "parentId")
+    private UUID parentId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")

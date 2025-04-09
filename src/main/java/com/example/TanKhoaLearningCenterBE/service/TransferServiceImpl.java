@@ -1,6 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.service;
 
-import com.example.TanKhoaLearningCenterBE.entity.BankEntity;
+import com.example.TanKhoaLearningCenterBE.entity.old.BankEntity;
 import com.example.TanKhoaLearningCenterBE.repository.BankAccountRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.TransferRequest;
 import lombok.extern.slf4j.Slf4j;

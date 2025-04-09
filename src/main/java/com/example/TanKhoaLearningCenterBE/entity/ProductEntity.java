@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @Table(name="product")
 public class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

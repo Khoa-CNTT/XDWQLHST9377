@@ -1,4 +1,4 @@
-package com.example.TanKhoaLearningCenterBE.entity;
+package com.example.TanKhoaLearningCenterBE.entity.old;
 
 import jakarta.persistence.*;
 import lombok.Data;

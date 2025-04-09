@@ -3,17 +3,21 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @Table(name = "userRoles")
 public class UserRoleEntiy {
 
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "roleId")
-    private RoleEntity roleId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userRoleId")
+    private UUID userRoleId;
 
-    @Id
+    @Column(name = "roleId")
+    private UUID roleId;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")
     private AccountEntity accountId;

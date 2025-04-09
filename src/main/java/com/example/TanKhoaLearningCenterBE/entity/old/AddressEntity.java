@@ -1,4 +1,4 @@
-package com.example.TanKhoaLearningCenterBE.entity;
+package com.example.TanKhoaLearningCenterBE.entity.old;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

@@ -22,4 +22,8 @@ public class ClassEntity {
     @OneToMany(cascade =  CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private List<CourseEntity> courseId;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "classId")
+    private List<TimeTableEntity> classIds;
 }

@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accountId")
@@ -29,6 +30,9 @@ public class AccountEntity {
 
     @Column(name = "modify_at")
     private Timestamp modifyAt;
+
+    @OneToOne(mappedBy = "accountId",cascade = CascadeType.ALL)
+    private UserRoleEntiy accountIds;
 
     @OneToOne(mappedBy = "accountId")
     private StudentEntity student;

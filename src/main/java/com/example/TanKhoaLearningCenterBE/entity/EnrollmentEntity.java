@@ -3,24 +3,28 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "attendance")
-public class AttendanceEntity {
+@Table(name = "enrollment")
+public class EnrollmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attendanceId")
-    private UUID attendId;
+    @Column(name = "enrollmentId")
+    private UUID enrollmentId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
-    private List<StudentEntity> studentID;
+    private List<StudentEntity> studentId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "classId")
     private List<ClassEntity> classId;
+
+    @Column(name = "createdAt")
+    private Timestamp createdAt;
 }

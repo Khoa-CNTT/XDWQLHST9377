@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "times")
 public class TimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timeId")
@@ -20,4 +22,8 @@ public class TimeEntity {
 
     @Column(name = "timeEnd")
     private LocalTime timeEnd;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "timeId")
+    private List<TimeTableEntity> timeIds;
 }

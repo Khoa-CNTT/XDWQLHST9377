@@ -1,6 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.web.rest;
 
-import com.example.TanKhoaLearningCenterBE.entity.CustomerEntity;
+import com.example.TanKhoaLearningCenterBE.entity.old.CustomerEntity;
 import com.example.TanKhoaLearningCenterBE.repository.CustomerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
