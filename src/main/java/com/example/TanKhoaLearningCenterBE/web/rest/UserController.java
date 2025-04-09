@@ -1,6 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.web.rest;
 
-import com.example.TanKhoaLearningCenterBE.entity.UserEntity;
+import com.example.TanKhoaLearningCenterBE.entity.AccountEntity;
 import com.example.TanKhoaLearningCenterBE.repository.UserRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +24,10 @@ public class UserController {
 
         //need better error handling with custom exceptions ->
 
-        Optional<UserEntity> optionalUser = userRepository.findByUsername(user.getUsername());
+        Optional<AccountEntity> optionalUser = userRepository.findByUsername(user.getUsername());
 
         if (optionalUser.isEmpty()){
-            userRepository.save(UserEntity.builder()
+            userRepository.save(AccountEntity.builder()
                             .username(user.getUsername())
                             .password(encoder.encode(user.getPassword()))
                     .build());

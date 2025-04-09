@@ -7,12 +7,12 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "accounts")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
+public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accountId")
@@ -29,4 +29,13 @@ public class UserEntity {
 
     @Column(name = "modify_at")
     private Timestamp modifyAt;
+
+    @OneToOne(mappedBy = "accountId")
+    private StudentEntity student;
+
+    @OneToOne(mappedBy = "accountId")
+    private ParentEntity parent;
+
+    @OneToOne(mappedBy = "accountId")
+    private TeacherEntity teacher;
 }

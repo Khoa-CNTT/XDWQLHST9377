@@ -2,7 +2,6 @@ package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class UserProfileEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")
-    private UserEntity accountId;
+    private AccountEntity accountId;
 
     @Column(name = "avatar")
     private byte avatar;

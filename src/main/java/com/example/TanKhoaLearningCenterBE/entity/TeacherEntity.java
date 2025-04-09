@@ -26,5 +26,5 @@ public class TeacherEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")
-    private UserEntity accountId;
+    private AccountEntity accountId;
 }
