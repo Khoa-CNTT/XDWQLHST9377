@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     @Cacheable("productCache")
     public ResponseEntity<?> delete(Integer id) {
         Optional<ProductEntity> productOptional = productRepository.findById(id);
-        if (productOptional.isPresent()){
+        if (productOptional.isPresent()) {
             productRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -90,10 +90,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Cacheable("productCache")
-    public ResponseEntity<ProductDTO> get(Integer id){
-        log.info("*** get id: {}", id );
+    public ResponseEntity<ProductDTO> get(Integer id) {
+        log.info("*** get id: {}", id);
         Optional<ProductEntity> productOptional = productRepository.findById(id);
-        if (productOptional.isPresent()){
+        if (productOptional.isPresent()) {
             productRepository.findById(id);
             return ResponseEntity.ok(new ProductDTO(productOptional.get()));
         }
@@ -102,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Cacheable("productCache")
-    public ResponseEntity<List<ProductDTO>> search(String name){
+    public ResponseEntity<List<ProductDTO>> search(String name) {
         List<ProductEntity> productEntityOptional = productRepository.findByNameContaining(name);
         if (!productEntityOptional.isEmpty()) {
             productRepository.findByNameContaining(name);

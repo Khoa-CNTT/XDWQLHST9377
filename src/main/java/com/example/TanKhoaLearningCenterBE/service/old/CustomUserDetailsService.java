@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         var user = userRepository.findByUsername(username);
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("Cannot find user");
-        };
+        }
 
         //this is where you can add roles & authorities to the user
 

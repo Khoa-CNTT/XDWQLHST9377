@@ -10,9 +10,14 @@ import java.util.List;
 
 public interface ProductService {
     ResponseEntity<ProductDTO> create(CreateProductRequest request);
+
     ResponseEntity<ProductDTO> put(Integer id, UpdateProductRequest request);
+
     ResponseEntity<?> delete(Integer id);
+
     ResponseEntity<ProductDTO> get(Integer id);
+
     ResponseEntity<PageResponse<ProductDTO>> getAll(Integer page, Integer size);
+
     ResponseEntity<List<ProductDTO>> search(String input);
 }

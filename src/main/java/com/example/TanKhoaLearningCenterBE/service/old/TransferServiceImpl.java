@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class TransferServiceImpl implements TransferService{
+public class TransferServiceImpl implements TransferService {
     private final BankAccountRepository bankAccountRepository;
 
     public TransferServiceImpl(BankAccountRepository bankAccountRepository) {
@@ -25,7 +25,7 @@ public class TransferServiceImpl implements TransferService{
         log.info("*** request: {}", transferRequest);
         Optional<BankEntity> fromAccount = bankAccountRepository.findByName(transferRequest.getFromUser());
         Optional<BankEntity> toAccount = bankAccountRepository.findByName(transferRequest.getToUser());
-        if (fromAccount.isEmpty() || toAccount.isEmpty()){
+        if (fromAccount.isEmpty() || toAccount.isEmpty()) {
             throw new RuntimeException("User not found");
         }
 
