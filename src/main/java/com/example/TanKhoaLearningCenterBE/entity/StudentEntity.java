@@ -2,7 +2,9 @@ package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -24,10 +26,12 @@ public class StudentEntity {
     @Column(name = "stdEmail", unique = true)
     private String stdEmail;
 
-    @Column(name = "parentId", nullable = false)
-    private UUID parentId;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parentId")
+    private List<ParentEntity> parentIds;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")
+    @ToString.Exclude
     private AccountEntity accountId;
 }

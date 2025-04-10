@@ -19,11 +19,7 @@ public class ClassEntity {
     @Column(name = "className", nullable = false, unique = true)
     private String className;
 
-    @OneToMany(cascade =  CascadeType.ALL)
+    @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "courseId")
-    private List<CourseEntity> courseIds;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "timeTable_id")
-    private List<TimeTableEntity> timeTableIds;
+    private CourseEntity courseIds;
 }

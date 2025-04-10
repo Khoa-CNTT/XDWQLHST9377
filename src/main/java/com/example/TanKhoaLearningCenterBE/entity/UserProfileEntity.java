@@ -16,7 +16,7 @@ public class UserProfileEntity {
     private UUID userProfileId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "accountId")
     private AccountEntity accountId;
 
     @Column(name = "avatar")

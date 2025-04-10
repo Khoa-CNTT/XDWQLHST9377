@@ -3,6 +3,7 @@ package com.example.TanKhoaLearningCenterBE.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,10 +16,11 @@ public class UserRoleEntiy {
     @Column(name = "userRoleId")
     private UUID userRoleId;
 
-    @Column(name = "roleId1")
-    private UUID roleId;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleId")
+    private List<RoleEntity> roleIds;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_accountId")
+    @JoinColumn(name = "accountId")
     private AccountEntity accountIds;
 }

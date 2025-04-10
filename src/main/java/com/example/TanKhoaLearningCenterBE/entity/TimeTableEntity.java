@@ -13,15 +13,18 @@ public class TimeTableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id;
+    @Column(name = "timeTableId")
+    private UUID timeTableId;
 
-    @Column(name = "day_id", nullable = false)
-    private UUID dayId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "dayId")
+    private DayEntity dayIds;
 
-    @Column(name = "time_id", nullable = false)
-    private UUID timeId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "timeId")
+    private TimeEntity timeIds;
 
-    @Column(name = "class_id", nullable = false)
-    private UUID classId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "classId")
+    private ClassEntity classIds;
 }

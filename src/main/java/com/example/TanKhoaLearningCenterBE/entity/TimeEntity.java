@@ -22,8 +22,4 @@ public class TimeEntity {
 
     @Column(name = "timeEnd", nullable = false)
     private LocalTime timeEnd;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "time_id")
-    private List<TimeTableEntity> timeIds;
 }

@@ -18,8 +18,4 @@ public class RoleEntity {
 
     @Column(name = "roleName", unique = true, nullable = false)
     private String roleName;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
-    private List<UserRoleEntiy> roleIds;
 }

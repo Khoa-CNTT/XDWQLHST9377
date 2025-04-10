@@ -18,8 +18,4 @@ public class DayEntity {
 
     @Column(name = "day", nullable = false, unique = true)
     private String day;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "day_id")
-    private List<TimeTableEntity> dayIds;
 }

@@ -2,6 +2,7 @@ package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ public class TeacherEntity {
     private String tEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_Id")
+    @JoinColumn(name = "accountId")
+    @ToString.Exclude
     private AccountEntity accountId;
 }
