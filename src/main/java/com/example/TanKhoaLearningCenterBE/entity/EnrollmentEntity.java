@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,13 +16,13 @@ public class EnrollmentEntity {
     @Column(name = "enrollmentId")
     private UUID enrollmentId;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
-    private List<StudentEntity> studentIds;
+    private StudentEntity studentIds;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "classId")
-    private List<ClassEntity> classIds;
+    private ClassEntity classIds;
 
     @Column(name = "createdAt")
     private Timestamp createdAt;

@@ -5,7 +5,6 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,8 +17,9 @@ public class PaymentEntity {
     @Column(name = "paymentId")
     private UUID paymentId;
 
-    @Column(name = "paymentMethod", nullable = false)
-    private String payMethod;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payMId")
+    private PaymentMethodEntity payMIds;
 
     @Column(name = "amount", nullable = false)
     @PositiveOrZero(message = "Amount cannot be negative")
@@ -28,7 +28,7 @@ public class PaymentEntity {
     @Column(name = "transferTime")
     private Timestamp transferTime;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billId")
-    private List<BillEntity> billIds;
+    private BillEntity billIds;
 }

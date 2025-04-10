@@ -30,20 +30,4 @@ public class AccountEntity {
 
     @Column(name = "modify_at")
     private Timestamp modifyAt;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "userRoles_roleId1")
-//    private UserRoleEntiy userRoleId;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "students_studentId")
-//    private StudentEntity student;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "parents_parentId")
-//    private ParentEntity parent;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "teachers_teacherId")
-//    private TeacherEntity teacher;
 }

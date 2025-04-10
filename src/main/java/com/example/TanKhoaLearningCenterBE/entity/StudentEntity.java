@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,9 +25,9 @@ public class StudentEntity {
     @Column(name = "stdEmail", unique = true)
     private String stdEmail;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parentId")
-    private List<ParentEntity> parentIds;
+    private ParentEntity parentIds;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountId")
