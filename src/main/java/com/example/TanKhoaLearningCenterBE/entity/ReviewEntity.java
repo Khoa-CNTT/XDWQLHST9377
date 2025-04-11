@@ -8,10 +8,9 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "reviews")
-public class ReviewEntity {
-
+public class ReviewEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "reviewId")
     private UUID reviewId;
 

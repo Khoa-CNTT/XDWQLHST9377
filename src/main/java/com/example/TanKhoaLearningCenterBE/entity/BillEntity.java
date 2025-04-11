@@ -10,16 +10,12 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "bills")
-public class BillEntity {
-
+public class BillEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "billId")
     private UUID billId;
 
     @Column(name = "billStatus")
     private Boolean billStatus;
-
-    @Column(name = "createdAt")
-    private Timestamp createdAt;
 }

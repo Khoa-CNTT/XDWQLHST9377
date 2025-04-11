@@ -8,10 +8,9 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "paymentMethod")
-public class PaymentMethodEntity {
-
+public class PaymentMethodEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "payMId")
     private UUID payMId;
 

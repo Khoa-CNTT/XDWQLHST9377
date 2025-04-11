@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccountServiceImp implements AccountService{
+public class AccountServiceImp implements AccountService {
     private final PasswordEncoder encoder;
     private final AccountRepository accountRepository;
 
@@ -38,12 +38,10 @@ public class AccountServiceImp implements AccountService{
         var acct = new AccountEntity();
         acct.setUserName(request.getUsername());
         acct.setPassWord(encoder.encode(request.getPassword()));
-//        acct.setPassWord(request.getPassword());
         var saveAcct = accountRepository.save(acct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDTO(saveAcct));
     }
-
 
     @Override
     public ResponseEntity<PageResponse<AccountDTO>> getAll(Integer page, Integer size) {

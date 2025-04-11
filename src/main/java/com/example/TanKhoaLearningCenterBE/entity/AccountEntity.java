@@ -13,10 +13,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountEntity {
-
+public class AccountEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "accountId")
     private UUID accountId;
 
@@ -27,9 +26,5 @@ public class AccountEntity {
     @Column(name = "password", nullable = false)
     private String passWord;
 
-    @Column(name = "createAt", nullable = false)
-    private Timestamp createAt;
 
-    @Column(name = "modifiedAt")
-    private Timestamp modifiedAt;
 }

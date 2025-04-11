@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: TanKhoaLearningCenterBE
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: ${POSTGRESQL_URI:jdbc:postgresql://localhost:6678/TanKhoaLCDB}
+    username: ${POSTGRESQL_USER:postgres}
+    password: ${POSTGRESQL_PASSWORD:edward123}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  health:
+    defaults:
+      enabled: false
+  endpoints:
+    enabled-by-default: false
+    health:
+      enabled: false
+    web:
+      exposure:
+        include: [ ]
+      cors:
+        allowed-origins: ${CORS_ORIGINS:*}
+        allowed-methods: ${CORS_METHODS:*}
+        allowed-headers: ${CORS_HEADERS:*}
+        allow-credentials: ${CORS_CREDENTIALS:false}
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    info:
+      enabled: false
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
+        enabled: true

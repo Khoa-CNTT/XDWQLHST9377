@@ -9,10 +9,9 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "enrollment")
-public class EnrollmentEntity {
-
+public class EnrollmentEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "enrollmentId")
     private UUID enrollmentId;
 
@@ -23,7 +22,4 @@ public class EnrollmentEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "classId")
     private ClassEntity classIds;
-
-    @Column(name = "createdAt")
-    private Timestamp createdAt;
 }

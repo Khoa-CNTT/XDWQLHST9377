@@ -9,10 +9,9 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "times")
-public class TimeEntity {
-
+public class TimeEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "timeId")
     private UUID timeId;
 

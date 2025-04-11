@@ -10,10 +10,9 @@ import java.util.UUID;
 @Entity
 @Data
 @Table(name = "payments")
-public class PaymentEntity {
-
+public class PaymentEntity extends AuditEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "paymentId")
     private UUID paymentId;
 
@@ -24,9 +23,6 @@ public class PaymentEntity {
     @Column(name = "amount", nullable = false)
     @PositiveOrZero(message = "Amount cannot be negative")
     private Long amount;
-
-    @Column(name = "transferTime")
-    private Timestamp transferTime;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billId")
