@@ -20,14 +20,14 @@ public class AccountEntity {
     private UUID accountId;
 
     @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    private String userName;
 
     @Column(name = "password", nullable = false)
-    private String password;
+    private String passWord;
 
-    @Column(name = "create_at", nullable = false)
+    @Column(name = "createAt", nullable = false)
     private Timestamp createAt;
 
-    @Column(name = "modify_at")
-    private Timestamp modifyAt;
+    @Column(name = "modifiedAt")
+    private Timestamp modifiedAt;
 }

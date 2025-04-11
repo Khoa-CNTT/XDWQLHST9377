@@ -3,10 +3,10 @@ package com.example.TanKhoaLearningCenterBE.exception;
 import lombok.Getter;
 
 @Getter
-public class ErrorReponse {
+public class ErrorResponse {
     private String message;
 
-    public ErrorReponse(String message) {
+    public ErrorResponse(String message) {
         this.message = message;
     }
 }
