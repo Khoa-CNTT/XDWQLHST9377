@@ -14,21 +14,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImp implements AccountService{
+    private final PasswordEncoder encoder;
     private final AccountRepository accountRepository;
 
     @Override
-    public ResponseEntity<AccountDTO> create(CreatAccountRequest request) {
+    public ResponseEntity<?> create(CreatAccountRequest request) {
         Optional<AccountEntity> existingAccount = accountRepository.findByUserName(request.getUsername());
 
         if (existingAccount.isPresent()) {
@@ -37,7 +37,8 @@ public class AccountServiceImp implements AccountService{
 
         var acct = new AccountEntity();
         acct.setUserName(request.getUsername());
-        acct.setPassWord(request.getPassword());
+        acct.setPassWord(encoder.encode(request.getPassword()));
+//        acct.setPassWord(request.getPassword());
         var saveAcct = accountRepository.save(acct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDTO(saveAcct));

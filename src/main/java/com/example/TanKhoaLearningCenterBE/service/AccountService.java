@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface AccountService {
-    ResponseEntity<AccountDTO> create(CreatAccountRequest request);
+    ResponseEntity<?> create(CreatAccountRequest request);
 
     ResponseEntity<?> delete(String name);
 

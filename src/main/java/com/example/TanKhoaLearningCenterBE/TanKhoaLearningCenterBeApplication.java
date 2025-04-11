@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.example" })
 @EnableCaching
 public class TanKhoaLearningCenterBeApplication {
 
