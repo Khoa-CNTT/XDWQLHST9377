@@ -1,6 +1,7 @@
 package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -19,7 +20,8 @@ public class AccountEntity {
     @Column(name = "accountId")
     private UUID accountId;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @NotNull(message = "Username is required")
+    @Column(name = "username")
     private String userName;
 
     @Column(name = "password", nullable = false)

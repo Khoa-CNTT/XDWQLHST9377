@@ -11,4 +11,11 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleAccountNotFoundException(AccountNotFoundException exception) {
         return new ErrorResponse(exception.getMessage());
     }
+
+    @ExceptionHandler(UserNameAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    public ErrorResponse handleAccountNotFoundExecption(UserNameAlreadyExistException exception){
+        return new ErrorResponse(exception.getMessage());
+    }
 }

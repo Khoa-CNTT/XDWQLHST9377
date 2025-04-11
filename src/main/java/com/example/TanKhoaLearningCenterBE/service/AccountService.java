@@ -6,7 +6,6 @@ import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface AccountService {
     ResponseEntity<AccountDTO> create(CreatAccountRequest request);
