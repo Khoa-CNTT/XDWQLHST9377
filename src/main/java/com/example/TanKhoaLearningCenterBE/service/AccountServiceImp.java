@@ -60,7 +60,7 @@ public class AccountServiceImp implements AccountService {
     @Override
     public ResponseEntity<?> delete(String name) {
         Optional<AccountEntity> optionalAccount = accountRepository.findByUserName(name);
-        if (optionalAccount.isPresent()){
+        if (optionalAccount.isPresent()) {
             accountRepository.delete(optionalAccount.get());
             return ResponseEntity.ok("Success");
         }
@@ -70,7 +70,7 @@ public class AccountServiceImp implements AccountService {
     @Override
     public ResponseEntity<List<AccountDTO>> search(String name) {
         Optional<AccountEntity> accountEntityOptional = accountRepository.findByUserName(name);
-        if (accountEntityOptional.isPresent()){
+        if (accountEntityOptional.isPresent()) {
             accountRepository.findByUserName(name);
             return ResponseEntity.ok(accountRepository.findByUserName(name).stream().map(AccountDTO::new).toList());
         }

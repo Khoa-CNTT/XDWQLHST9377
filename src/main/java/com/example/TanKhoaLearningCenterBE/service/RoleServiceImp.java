@@ -16,7 +16,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImp implements RoleService{
+public class RoleServiceImp implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override

@@ -4,5 +4,5 @@ import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateRoleRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface RoleService {
-    ResponseEntity<?> create(CreateRoleRequest  createRoleRequest);
+    ResponseEntity<?> create(CreateRoleRequest createRoleRequest);
 }
