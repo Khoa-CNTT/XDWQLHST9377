@@ -1,7 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.web.rest;
 
 import com.example.TanKhoaLearningCenterBE.dto.AccountDTO;
-import com.example.TanKhoaLearningCenterBE.repository.AccountRepository;
 import com.example.TanKhoaLearningCenterBE.service.AccountService;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import java.util.List;
 @RequestMapping("account")
 @RequiredArgsConstructor
 public class AccountController {
-
-    private final AccountRepository accountRepository;
     private final AccountService accountService;
 
     @PostMapping("/create")

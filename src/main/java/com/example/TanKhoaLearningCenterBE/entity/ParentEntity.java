@@ -10,7 +10,6 @@ import java.util.UUID;
 @Data
 @Table(name = "parents")
 public class ParentEntity extends AuditEntity {
-
     @Id
     @GeneratedValue
     @Column(name = "parentId")

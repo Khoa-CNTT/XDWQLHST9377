@@ -8,8 +8,13 @@ import org.springframework.security.core.userdetails.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.function.Function;
 
 public class JwtUtil {
+    public static String extractUsername(String token) {
+        return  getClaims(token).getSubject();
+    }
+
     public static String genrateToken(User user){
         return Jwts
                 .builder()

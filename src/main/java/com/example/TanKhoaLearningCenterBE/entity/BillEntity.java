@@ -1,6 +1,5 @@
 package com.example.TanKhoaLearningCenterBE.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
