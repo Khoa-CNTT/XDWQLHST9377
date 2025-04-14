@@ -1,17 +1,14 @@
 package com.example.TanKhoaLearningCenterBE.web.rest;
 
 import com.example.TanKhoaLearningCenterBE.dto.AccountDTO;
-import com.example.TanKhoaLearningCenterBE.entity.AccountEntity;
 import com.example.TanKhoaLearningCenterBE.repository.AccountRepository;
 import com.example.TanKhoaLearningCenterBE.service.AccountService;
-import com.example.TanKhoaLearningCenterBE.web.rest.request.CreatAccountRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("account")
@@ -22,18 +19,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody CreatAccountRequest account){
-//        Optional<AccountEntity> optionalAccount = accountRepository.findByUserName(account.getUsername());
-//
-//        if (optionalAccount.isEmpty()){
-//            accountRepository.save(AccountEntity.builder()
-//                    .userName(account.getUsername())
-//                    .passWord(encoder.encode(account.getPassword()))
-//                    .build());
-//            return ResponseEntity.ok("Success");
-//        }
-//
-//        return ResponseEntity.badRequest().body("Failure");
+    public ResponseEntity<?> create(@RequestBody CreateAccountRequest account){
         return accountService.create(account);
     }
 

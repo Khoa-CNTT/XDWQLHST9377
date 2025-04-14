@@ -5,7 +5,7 @@ import com.example.TanKhoaLearningCenterBE.entity.AccountEntity;
 import com.example.TanKhoaLearningCenterBE.exception.AccountNotFoundException;
 import com.example.TanKhoaLearningCenterBE.exception.UserNameAlreadyExistException;
 import com.example.TanKhoaLearningCenterBE.repository.AccountRepository;
-import com.example.TanKhoaLearningCenterBE.web.rest.request.CreatAccountRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class AccountServiceImp implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public ResponseEntity<?> create(CreatAccountRequest request) {
+    public ResponseEntity<?> create(CreateAccountRequest request) {
         Optional<AccountEntity> existingAccount = accountRepository.findByUserName(request.getUsername());
 
         if (existingAccount.isPresent()) {

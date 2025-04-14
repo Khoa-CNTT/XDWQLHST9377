@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +22,8 @@ public class AccountEntity extends AuditEntity {
     @Column(name = "username")
     private String userName;
 
-    @Column(name = "password", nullable = false)
+    @NotNull(message = "Password is required")
+    @Column(name = "password")
     private String passWord;
 
 
