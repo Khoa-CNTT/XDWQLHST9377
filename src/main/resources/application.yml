@@ -55,3 +55,11 @@ management:
     metrics:
       export:
         enabled: true
+
+application:
+  security:
+    jwt:
+      secret-key: 6e5f9db3f11f7585ceaeb35550270e36ffd731f3961600dc349a92415cfdfdc7
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days

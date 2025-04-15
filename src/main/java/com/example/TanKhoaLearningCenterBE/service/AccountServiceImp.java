@@ -38,6 +38,7 @@ public class AccountServiceImp implements AccountService {
         var acct = new AccountEntity();
         acct.setUserName(request.getUsername());
         acct.setPassWord(encoder.encode(request.getPassword()));
+        acct.setRole(request.getRole());
         var saveAcct = accountRepository.save(acct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDTO(saveAcct));

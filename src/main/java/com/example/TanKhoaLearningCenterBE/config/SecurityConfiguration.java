@@ -43,11 +43,11 @@ public class SecurityConfiguration {
                 //allows for POST, PUT, GET, DELETE mapping with authorization
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->{
-//                    authorize.anyRequest().permitAll();
-                    authorize.requestMatchers("/account/create").permitAll();
-                    authorize.requestMatchers("/login").permitAll();
+                    authorize.anyRequest().permitAll();
+//                    authorize.requestMatchers("/account/create").permitAll();
+//                    authorize.requestMatchers("/login").permitAll();
 
-                    authorize.anyRequest().authenticated();
+//                    authorize.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
