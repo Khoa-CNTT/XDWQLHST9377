@@ -35,7 +35,7 @@ public enum Role {
                     PARENT_CREATE
             )
     ),
-    MANAGER(
+    TEACHER(
             Set.of(
                     TEACHER_READ,
                     TEACHER_UPDATE,
