@@ -1,0 +1,116 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../services/auth.service";
+import { setLocalData } from "../../services/localStorage";
+
+export default function SignInSide() {
+  console.log("Base URL:", import.meta.env.VITE_API_URL);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleLogin = async () => {
+    setError("");
+
+    try {
+      const res = await login({ username, password });
+
+      const token = res?.data?.token;
+      const role = res?.data?.role;
+
+      if (token) {
+        setLocalData("accessToken", token);
+        setLocalData("isLoggedIn", "true");
+        setLocalData("role", role);
+
+        navigate("/"); // chuyển hướng sau khi login thành công
+      } else {
+        setError("Thông tin đăng nhập không hợp lệ");
+      }
+    } catch (err) {
+      console.error("Login error", err);
+      setError("Đăng nhập thất bại. Vui lòng kiểm tra lại.");
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        mt: 4,
+      }}
+    >
+      <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-username">Username</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-username"
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </FormControl>
+
+      <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-password"
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={showPassword ? "hide password" : "show password"}
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                onMouseUp={handleMouseUpPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password"
+        />
+      </FormControl>
+
+      {error && (
+        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+          {error}
+        </Typography>
+      )}
+
+      <Button
+        variant="contained"
+        sx={{ mt: 2, width: "30ch" }}
+        onClick={handleLogin}
+      >
+        Đăng nhập
+      </Button>
+    </Box>
+  );
+}
