@@ -3,7 +3,7 @@ import axios from "axios";
 import { getLocalData, removeLocalData } from "../localStorage";
 
 const baseApi = axios.create({
-  //   baseURL: `${process.env.VITE_API_URL}`,
+  baseURL: `${import.meta.env.VITE_API_URL}`,
 });
 
 baseApi.interceptors.request.use(
@@ -33,7 +33,7 @@ baseApi.interceptors.response.use(
     ) {
       removeLocalData("isLoggedIn");
       removeLocalData("accessToken");
-      removeLocalData("role");
+      // removeLocalData("role");
       window.location.reload();
     }
 
@@ -42,6 +42,7 @@ baseApi.interceptors.response.use(
 );
 
 const _makeRequest = (createRequest, options) => async (args) => {
+  console.log(args);
   const _headers = args.headers ? args.headers : {};
   const body = args.body ? args.body : {};
   const defaultHeaders = {};
@@ -52,8 +53,10 @@ const _makeRequest = (createRequest, options) => async (args) => {
       ...defaultHeaders,
       ..._headers,
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
     },
-    data: body,
+    body,
     ...options,
   };
 
@@ -61,6 +64,7 @@ const _makeRequest = (createRequest, options) => async (args) => {
 
   try {
     const response = await createRequest(mergedArgs);
+    console.log("Make request", response);
     return response;
   } catch (e) {
     // console.log(e);

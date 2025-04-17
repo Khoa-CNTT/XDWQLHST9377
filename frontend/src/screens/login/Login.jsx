@@ -38,12 +38,12 @@ export default function SignInSide() {
       const res = await login({ username, password });
 
       const token = res?.data?.token;
-      const role = res?.data?.role;
+      // const role = res?.data?.role;
 
       if (token) {
         setLocalData("accessToken", token);
         setLocalData("isLoggedIn", "true");
-        setLocalData("role", role);
+        // setLocalData("role", role);
 
         navigate("/"); // chuyển hướng sau khi login thành công
       } else {
