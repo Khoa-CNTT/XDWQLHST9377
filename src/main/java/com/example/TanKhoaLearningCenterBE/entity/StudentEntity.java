@@ -1,8 +1,10 @@
 package com.example.TanKhoaLearningCenterBE.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.UUID;
 
@@ -15,13 +17,15 @@ public class StudentEntity extends AuditEntity {
     @Column(name = "studentId")
     private UUID studentId;
 
-    @Column(name = "stdName", nullable = false)
+    @NotNull(message = "Name is required")
+    @Column(name = "stdName")
     private String stdName;
 
-    @Column(name = "stdPhoneNumber", nullable = false, unique = true)
+    @NotNull(message = "Phone number is required")
+    @Column(name = "stdPhoneNumber", unique = true)
     private String stdPhoneNumber;
 
-    @Column(name = "stdEmail", unique = true)
+    @Column(name = "stdEmail")
     private String stdEmail;
 
     @ManyToOne(cascade = CascadeType.ALL)

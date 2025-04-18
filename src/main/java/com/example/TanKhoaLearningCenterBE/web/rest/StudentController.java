@@ -1,0 +1,35 @@
+package com.example.TanKhoaLearningCenterBE.web.rest;
+
+import com.example.TanKhoaLearningCenterBE.dto.StudentDTO;
+import com.example.TanKhoaLearningCenterBE.service.StudentService;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateStudentRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateStudentRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/api/student")
+@RequiredArgsConstructor
+public class StudentController {
+    private final StudentService studentService;
+
+    @PostMapping("/create")
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody CreateStudentRequest student) {
+        return studentService.create(student);
+    }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable UUID id, @RequestBody UpdateStudentRequest student) {
+        return studentService.put(id, student);
+    }
+
+    @PostMapping("/studentList")
+    public ResponseEntity<PageResponse<StudentDTO>> getStudents(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+                                                                @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+        return studentService.getAll(page, size);
+    }
+}
