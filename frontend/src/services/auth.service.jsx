@@ -8,7 +8,7 @@ export const login = (payload) => {
   return api.makeRequest({
     url: "/auth/authenticate",
     method: "POST",
-    body: payload,
+    data: payload,
   });
 };
 

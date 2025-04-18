@@ -12,6 +12,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
 import { setLocalData } from "../../services/localStorage";
+import Dashboard from "../../layouts";
+import { isLoggedInText } from "../../utils/constants";
+
+function isLoggedIn() {
+  return localStorage.getItem("isLoggedIn") === "true";
+}
 
 export default function SignInSide() {
   console.log("Base URL:", import.meta.env.VITE_API_URL);
@@ -37,15 +43,18 @@ export default function SignInSide() {
     try {
       const res = await login({ username, password });
 
-      const token = res?.data?.token;
+      const token = res?.data?.accessToken;
       // const role = res?.data?.role;
 
+      console.log("****Token", token);
       if (token) {
         setLocalData("accessToken", token);
-        setLocalData("isLoggedIn", "true");
+        // setLocalData("isLoggedIn", "true");
+        setLocalData(isLoggedInText, true);
         // setLocalData("role", role);
 
-        navigate("/"); // chuyển hướng sau khi login thành công
+        window.location.reload();
+        // window.loca("/dashboard"); // chuyển hướng sau khi login thành công
       } else {
         setError("Thông tin đăng nhập không hợp lệ");
       }
