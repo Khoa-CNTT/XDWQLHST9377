@@ -15,12 +15,8 @@ import { setLocalData } from "../../services/localStorage";
 import Dashboard from "../../layouts";
 import { isLoggedInText } from "../../utils/constants";
 
-function isLoggedIn() {
-  return localStorage.getItem("isLoggedIn") === "true";
-}
-
 export default function SignInSide() {
-  console.log("Base URL:", import.meta.env.VITE_API_URL);
+  // console.log("Base URL:", import.meta.env.VITE_API_URL);
   const [showPassword, setShowPassword] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -49,12 +45,11 @@ export default function SignInSide() {
       console.log("****Token", token);
       if (token) {
         setLocalData("accessToken", token);
-        // setLocalData("isLoggedIn", "true");
         setLocalData(isLoggedInText, true);
         // setLocalData("role", role);
 
-        window.location.reload();
-        // window.loca("/dashboard"); // chuyển hướng sau khi login thành công
+        // window.location.reload();
+        navigate("/"); // chuyển hướng sau khi login thành công
       } else {
         setError("Thông tin đăng nhập không hợp lệ");
       }

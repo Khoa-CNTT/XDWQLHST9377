@@ -17,7 +17,7 @@ function isLoggedIn() {
 }
 
 function GuestGuard({ children }) {
-  console.log();
+  // console.log();
   if (isLoggedIn()) {
     return <Navigate to={"/"} />;
   }
@@ -25,8 +25,8 @@ function GuestGuard({ children }) {
 }
 
 function ProtectedRoute({ children }) {
-  console.log("**log protected");
-  console.log(isLoggedIn());
+  // console.log("**log protected");
+  // console.log(isLoggedIn());
   if (!isLoggedIn()) {
     return <Navigate to={"/login"} />;
   }
