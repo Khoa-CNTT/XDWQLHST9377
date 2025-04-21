@@ -5,12 +5,11 @@ import {
   Routes,
   createHashRouter,
 } from "react-router-dom";
-import PageContent from "../layouts/Pagecontent";
 import SignInSide from "../screens/login/Login";
 import Error404 from "../screens/errorpage/Error";
-import Dashboard from "../layouts";
 import { isLoggedInText } from "../utils/constants";
 import { getLocalData } from "../services/localStorage";
+import Dashboard from "../layouts";
 
 function isLoggedIn() {
   return getLocalData(isLoggedInText);

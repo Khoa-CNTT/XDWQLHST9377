@@ -12,7 +12,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
 import { setLocalData } from "../../services/localStorage";
-import Dashboard from "../../layouts";
 import { isLoggedInText } from "../../utils/constants";
 
 export default function SignInSide() {
@@ -49,7 +48,7 @@ export default function SignInSide() {
         // setLocalData("role", role);
 
         // window.location.reload();
-        navigate("/"); // chuyển hướng sau khi login thành công
+        navigate("/");
       } else {
         setError("Thông tin đăng nhập không hợp lệ");
       }
