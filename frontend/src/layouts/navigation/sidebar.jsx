@@ -6,6 +6,7 @@ import {
   AppstoreOutlined,
   ContainerOutlined,
   DesktopOutlined,
+  LockOutlined,
   MailOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -16,13 +17,13 @@ import { Layout, Menu } from "antd";
 const { Sider } = Layout;
 
 const items = [
-  { key: "1", icon: <PieChartOutlined />, label: "Option 1" },
+  { key: "dashboard", icon: <PieChartOutlined />, label: "Dashboard" },
   { key: "2", icon: <DesktopOutlined />, label: "Option 2" },
   { key: "3", icon: <ContainerOutlined />, label: "Option 3" },
   {
-    key: "sub1",
-    label: "Navigation One",
-    icon: <MailOutlined />,
+    key: "authenticate",
+    label: "Authenticate",
+    icon: <LockOutlined />,
     children: [
       { key: "5", label: "Option 5" },
       { key: "6", label: "Option 6" },
@@ -31,25 +32,17 @@ const items = [
     ],
   },
   {
-    key: "sub2",
-    label: "Navigation Two",
-    icon: <AppstoreOutlined />,
+    key: "student",
+    label: "Học Sinh",
+    icon: <UserOutlined />,
     children: [
-      { key: "9", label: "Option 9" },
-      { key: "10", label: "Option 10" },
-      {
-        key: "sub3",
-        label: "Submenu",
-        children: [
-          { key: "11", label: "Option 11" },
-          { key: "12", label: "Option 12" },
-        ],
-      },
+      { key: "listAlls", label: "Danh sách học sinh" },
+      { key: "create", label: "**" },
     ],
   },
 ];
 
-const AppSider = () => {
+const AppSider = ({ onMenuItemClick, selectedKeys }) => {
   return (
     <Sider
       breakpoint="lg"
@@ -65,8 +58,10 @@ const AppSider = () => {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={["4"]}
+        defaultSelectedKeys={["dashboard"]}
+        selectedKeys={selectedKeys}
         items={items}
+        onClick={onMenuItemClick}
       />
     </Sider>
   );
