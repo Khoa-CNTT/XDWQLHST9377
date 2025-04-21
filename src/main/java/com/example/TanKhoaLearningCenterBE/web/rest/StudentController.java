@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,5 +32,15 @@ public class StudentController {
     public ResponseEntity<PageResponse<StudentDTO>> getStudents(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
                                                                 @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
         return studentService.getAll(page, size);
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable UUID id) {
+        return studentService.delete(id);
+    }
+
+    @PostMapping("/search/{id}")
+    public ResponseEntity<List<StudentDTO>> searchStudent(@RequestParam String name) {
+        return studentService.search(name);
     }
 }
