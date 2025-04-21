@@ -18,6 +18,9 @@ public class ClassEntity extends AuditEntity {
     @Column(name = "className", nullable = false, unique = true)
     private String className;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "courseId")
     private CourseEntity courseIds;
