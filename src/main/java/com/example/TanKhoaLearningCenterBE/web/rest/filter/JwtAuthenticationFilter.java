@@ -1,5 +1,6 @@
 package com.example.TanKhoaLearningCenterBE.web.rest.filter;
 
+import com.example.TanKhoaLearningCenterBE.exception.ForbiddenException;
 import com.example.TanKhoaLearningCenterBE.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -39,10 +40,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userName;
+        log.info("**** authheader: {}",authHeader);
 
-        if (authHeader == null || authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request, response);
-            return;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+//            filterChain.doFilter(request, response);
+            throw new ForbiddenException();
         }
 
         jwt = authHeader.substring(7);

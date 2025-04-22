@@ -23,23 +23,23 @@ public class StudentController {
         return studentService.create(student);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<StudentDTO> updateStudent(@PathVariable UUID id, @RequestBody UpdateStudentRequest student) {
         return studentService.put(id, student);
     }
 
-    @PostMapping("/studentList")
+    @GetMapping("/studentList")
     public ResponseEntity<PageResponse<StudentDTO>> getStudents(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
                                                                 @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
         return studentService.getAll(page, size);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable UUID id) {
         return studentService.delete(id);
     }
 
-    @PostMapping("/search/{id}")
+    @GetMapping("/search")
     public ResponseEntity<List<StudentDTO>> searchStudent(@RequestParam String name) {
         return studentService.search(name);
     }
