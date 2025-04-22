@@ -85,7 +85,7 @@ public class StudentServiceImp implements StudentService{
 
     @Override
     public ResponseEntity<List<StudentDTO>> search(String name) {
-        List<StudentEntity> studentEntityList = studentRepository.findByNameCustom(name);
+        List<StudentEntity> studentEntityList = studentRepository.findByStdNameContainingIgnoreCase(name);
         if (!studentEntityList.isEmpty()) {
             return ResponseEntity.ok(studentEntityList.stream().map(StudentDTO::new).toList());
         }
