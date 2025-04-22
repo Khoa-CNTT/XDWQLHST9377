@@ -5,7 +5,7 @@ import AppFooter from "./navigation/footer";
 import AppContent from "./navigation/content";
 import AppSider from "./navigation/sidebar";
 import BreadCrumb from "../components/breadcrumbs";
-import ManageStudents from "../components/students/student.getAll";
+import ManageStudents from "../components/students";
 
 const componentMap = {
   dashboard: () => (

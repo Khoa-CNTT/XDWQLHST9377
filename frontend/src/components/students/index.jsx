@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Typography, message } from "antd";
+import { Table, Button, Typography, message, Input, Space } from "antd";
 import { createStyles } from "antd-style";
 import { DeleteFilled, EditFilled, SearchOutlined } from "@ant-design/icons";
 import {
@@ -7,6 +7,7 @@ import {
   deleteStudent,
   create,
   update,
+  search,
 } from "../../services/student.service";
 import AddStudentDrawer from "../drawers";
 
@@ -75,6 +76,17 @@ const ManageStudents = () => {
     }
   };
 
+  const handleSearch = async (name) => {
+    try {
+      await search(name);
+      // message.success("Cập nhật sinh viên thành công!");
+      fetchStudents(); // Gọi lại để reload dữ liệu
+    } catch (error) {
+      console.error("Tìm kiếm thất bại:", error);
+      // message.error("Cập nhật sinh viên thất bại!");
+    }
+  };
+
   const handleCreate = async (values) => {
     try {
       await create(values);
@@ -131,14 +143,30 @@ const ManageStudents = () => {
         marginBottom: "16px",
       }}
     >
-      <Button
-        type="primary"
-        icon={<SearchOutlined />}
-        style={{ marginBottom: "8px" }}
-        onClick={showDrawer}
-      >
-        Thêm học sinh
-      </Button>
+      {/* <Input
+        size="large"
+        placeholder="large size"
+        prefix={<SearchOutlined />}
+      /> */}
+      <div>
+        <Space.Compact>
+          <Input
+            // size="large"
+            style={{ width: "80%" }}
+            placeholder="Tìm kiếm học sinh"
+            prefix={<SearchOutlined />}
+            onChange={handleSearch}
+          />
+        </Space.Compact>
+        <Button
+          type="primary"
+          icon={<SearchOutlined />}
+          style={{ marginBottom: "8px" }}
+          onClick={showDrawer}
+        >
+          Thêm học sinh
+        </Button>
+      </div>
       <Table
         columns={columns}
         dataSource={dataSource}
