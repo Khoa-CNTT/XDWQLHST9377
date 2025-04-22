@@ -6,7 +6,7 @@ import AppContent from "./navigation/content";
 import ManageAccounts from "./page/Accounts";
 import AppSider from "./navigation/sidebar";
 import BreadCrumb from "../components/breadcrumbs";
-import ManageStudents from "./page/Students";
+import ManageStudents from "../components/students/student.getAll";
 
 const { Content } = Layout;
 

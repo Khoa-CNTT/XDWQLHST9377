@@ -9,7 +9,6 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/imgs/logo45.png";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/auth.service";
 import { setLocalData } from "../../services/localStorage";
 import { isLoggedInText } from "../../utils/constants";
@@ -19,7 +18,6 @@ const { Header } = Layout;
 const AppHeader = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [theme, setTheme] = useState("dark");
-  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);

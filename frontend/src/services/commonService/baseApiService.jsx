@@ -34,7 +34,7 @@ baseApi.interceptors.response.use(
     ) {
       removeLocalData(isLoggedInText);
       removeLocalData("accessToken");
-      // removeLocalData("role");
+      removeLocalData("role");
       window.location.reload();
     }
 

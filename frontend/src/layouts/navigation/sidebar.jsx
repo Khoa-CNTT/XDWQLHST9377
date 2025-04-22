@@ -18,8 +18,6 @@ const { Sider } = Layout;
 
 const items = [
   { key: "dashboard", icon: <PieChartOutlined />, label: "Dashboard" },
-  { key: "2", icon: <DesktopOutlined />, label: "Option 2" },
-  { key: "3", icon: <ContainerOutlined />, label: "Option 3" },
   {
     key: "authenticate",
     label: "Authenticate",
@@ -27,8 +25,6 @@ const items = [
     children: [
       { key: "5", label: "Option 5" },
       { key: "6", label: "Option 6" },
-      { key: "7", label: "Option 7" },
-      { key: "8", label: "Option 8" },
     ],
   },
   {

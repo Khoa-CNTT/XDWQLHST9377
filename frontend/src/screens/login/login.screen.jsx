@@ -9,18 +9,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.service";
 import { setLocalData } from "../../services/localStorage";
 import { isLoggedInText } from "../../utils/constants";
+// import { useDispatch } from "react-redux";
+import authSlice from "../../toolkits/auth/slice";
 
 export default function SignInSide() {
-  // console.log("Base URL:", import.meta.env.VITE_API_URL);
   const [showPassword, setShowPassword] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -32,6 +32,10 @@ export default function SignInSide() {
     event.preventDefault();
   };
 
+  // const login = (values) => {
+  //   dispatch(authSlice.actions.login(values));
+  // };
+
   const handleLogin = async () => {
     setError("");
 
@@ -39,16 +43,15 @@ export default function SignInSide() {
       const res = await login({ username, password });
 
       const token = res?.data?.accessToken;
-      // const role = res?.data?.role;
+      const role = res?.data?.role;
 
-      console.log("****Token", token);
+      // console.log("****Token", token);
       if (token) {
         setLocalData("accessToken", token);
         setLocalData(isLoggedInText, true);
-        // setLocalData("role", role);
+        setLocalData("role", role);
 
-        // window.location.reload();
-        navigate("/");
+        window.location.reload();
       } else {
         setError("Thông tin đăng nhập không hợp lệ");
       }
