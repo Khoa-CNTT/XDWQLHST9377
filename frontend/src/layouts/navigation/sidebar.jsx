@@ -1,15 +1,7 @@
 import React from "react";
 import {
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
   LockOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";

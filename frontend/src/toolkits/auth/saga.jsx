@@ -4,10 +4,11 @@ import { login, logout } from "../../services/auth.service";
 import { removeLocalData, setLocalData } from "../../services/localStorage";
 import { isLoggedInText } from "../../utils/constants";
 import authSlice from "./slice";
+import alertSlice from "../alert/slice";
 
 function* loginSaga({ payload }) {
   try {
-    const response = yield ClickAwayListener(login, payload);
+    const response = yield call(login, payload);
     if (response.status === 200) {
       const data = response.data;
       const { accessToken, role } = data;
@@ -17,13 +18,16 @@ function* loginSaga({ payload }) {
         setLocalData("role", role);
         yield put(authSlice.actions.loginSuccess(role));
         window.location.reload();
+        yield put(alertSlice.actions.success("Đăng nhập thành công"));
       } else {
         console.log("**Error");
       }
     } else {
+      yield put(alertSlice.actions.error("Đăng nhập không thành công"));
       console.log("** API error");
     }
   } catch (e) {
+    yield put(alertSlice.actions.error("Đăng nhập không thành công"));
     console.log(e);
   }
 }
@@ -32,6 +36,7 @@ function* logoutSaga() {
   try {
     const response = yield call(logout);
     if (response.status === 200) {
+      yield put(alertSlice.actions.success("Đăng xuất thành công"));
       console.log("Đăng xuất thành công");
     } else {
       console.log("** API error");

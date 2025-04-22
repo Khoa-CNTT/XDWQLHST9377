@@ -3,12 +3,9 @@ import { Layout } from "antd";
 import AppHeader from "./navigation/header";
 import AppFooter from "./navigation/footer";
 import AppContent from "./navigation/content";
-import ManageAccounts from "./page/Accounts";
 import AppSider from "./navigation/sidebar";
 import BreadCrumb from "../components/breadcrumbs";
 import ManageStudents from "../components/students/student.getAll";
-
-const { Content } = Layout;
 
 const componentMap = {
   dashboard: () => (

@@ -1,122 +1,189 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { login } from "../../services/auth.service";
-import { setLocalData } from "../../services/localStorage";
-import { isLoggedInText } from "../../utils/constants";
-// import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import { useDispatch } from "react-redux";
 import authSlice from "../../toolkits/auth/slice";
+import { AuthWrapper } from "./login.style";
+import * as Yup from "yup";
+import { motion } from "framer-motion";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import LockIcon from "@mui/icons-material/Lock";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Stack,
+  Typography,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
-export default function SignInSide() {
+const SignInSide = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
-  };
-
-  // const login = (values) => {
-  //   dispatch(authSlice.actions.login(values));
-  // };
-
-  const handleLogin = async () => {
-    setError("");
-
-    try {
-      const res = await login({ username, password });
-
-      const token = res?.data?.accessToken;
-      const role = res?.data?.role;
-
-      // console.log("****Token", token);
-      if (token) {
-        setLocalData("accessToken", token);
-        setLocalData(isLoggedInText, true);
-        setLocalData("role", role);
-
-        window.location.reload();
-      } else {
-        setError("Thông tin đăng nhập không hợp lệ");
-      }
-    } catch (err) {
-      console.error("Login error", err);
-      setError("Đăng nhập thất bại. Vui lòng kiểm tra lại.");
+  const onLoginBtnClicked = (values) => {
+    if (values.username === "") {
+      dispatch(alertSlice.actions.error("Chưa nhập username!"));
+    } else if (values.password === "") {
+      dispatch(alertSlice.actions.error("Chưa nhập mật khẩu!"));
+    } else {
+      login(values);
     }
   };
 
+  const login = (values) => {
+    dispatch(authSlice.actions.login(values));
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        mt: 4,
-      }}
-    >
-      <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-username">Username</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-username"
-          label="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </FormControl>
-
-      <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label={showPassword ? "hide password" : "show password"}
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
-      </FormControl>
-
-      {error && (
-        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-          {error}
-        </Typography>
-      )}
-
-      <Button
-        variant="contained"
-        sx={{ mt: 2, width: "30ch" }}
-        onClick={handleLogin}
-      >
-        Đăng nhập
-      </Button>
-    </Box>
+    <AuthWrapper>
+      <Grid container spacing={3}>
+        <Grid container justifyContent="center">
+          <Typography variant="h3" sx={{ fontSize: "2rem" }}>
+            Đăng nhập
+          </Typography>
+        </Grid>
+        <Grid>
+          <>
+            <Formik
+              initialValues={{
+                username: "",
+                password: "",
+              }}
+              validationSchema={Yup.object().shape({
+                username: Yup.string()
+                  .max(20)
+                  .required("Tên đăng nhập là bắt buộc"),
+                password: Yup.string().max(20).required("Mật khẩu là bắt buộc"),
+              })}
+              onSubmit={(values) => onLoginBtnClicked(values)}
+            >
+              {({
+                errors,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+                touched,
+                values,
+              }) => (
+                <form noValidate onSubmit={handleSubmit}>
+                  <Grid container spacing={3}>
+                    <Grid>
+                      <Stack spacing={1}>
+                        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                          <AccountCircle
+                            sx={{ color: "action.active", mr: 1, my: 0.5 }}
+                          />
+                          <FormControl sx={{ width: 300 }} variant="standard">
+                            <InputLabel htmlFor="standard-adornment-username">
+                              Tên đăng nhập
+                            </InputLabel>
+                            <Input
+                              id="standard-adornment-username"
+                              type="text"
+                              value={values.username}
+                              name="username"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              fullWidth
+                              error={Boolean(
+                                touched.username && errors.username
+                              )}
+                            />
+                          </FormControl>
+                        </Box>
+                        {touched.username && errors.username && (
+                          <FormHelperText
+                            error
+                            id="standard-weight-helper-text-username-login"
+                          >
+                            {errors.username}
+                          </FormHelperText>
+                        )}
+                      </Stack>
+                    </Grid>
+                    <Grid>
+                      <Stack spacing={1}>
+                        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                          <LockIcon
+                            sx={{ color: "action.active", mr: 1, my: 0.5 }}
+                          />
+                          <FormControl sx={{ width: 300 }} variant="standard">
+                            <InputLabel htmlFor="standard-adornment-password">
+                              Mật khẩu
+                            </InputLabel>
+                            <Input
+                              id="standard-adornment-password"
+                              type={showPassword ? "text" : "password"}
+                              value={values.password}
+                              name="password"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              fullWidth
+                              error={Boolean(
+                                touched.password && errors.password
+                              )}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                  >
+                                    {showPassword ? (
+                                      <VisibilityOffIcon />
+                                    ) : (
+                                      <VisibilityIcon />
+                                    )}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            />
+                          </FormControl>
+                        </Box>
+                        {touched.password && errors.password && (
+                          <FormHelperText
+                            error
+                            id="standard-weight-helper-text-password-login"
+                          >
+                            {errors.password}
+                          </FormHelperText>
+                        )}
+                      </Stack>
+                    </Grid>
+                    <Grid>
+                      <motion.div
+                        whileHover={{ scale: 1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Button
+                          disableElevation
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          variant="contained"
+                        >
+                          Đăng nhập
+                        </Button>
+                      </motion.div>
+                    </Grid>
+                  </Grid>
+                </form>
+              )}
+            </Formik>
+          </>
+        </Grid>
+      </Grid>
+    </AuthWrapper>
   );
-}
+};
+
+export default SignInSide;
