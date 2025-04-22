@@ -10,30 +10,13 @@ import {
   search,
 } from "../../services/student.service";
 import AddStudentDrawer from "../drawers";
-
-const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
-
-  return {
-    customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: #eaeaea transparent;
-            scrollbar-gutter: stable;
-          }
-        }
-      }
-    `,
-  };
-});
+import { debounce } from "lodash";
 
 const ManageStudents = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -58,7 +41,7 @@ const ManageStudents = () => {
     try {
       await deleteStudent(id);
       message.success("Xóa sinh viên thành công!");
-      fetchStudents(); // Gọi lại để reload dữ liệu
+      fetchStudents();
     } catch (error) {
       console.error("Xóa thất bại:", error);
       message.error("Xóa sinh viên thất bại!");
@@ -69,7 +52,7 @@ const ManageStudents = () => {
     try {
       await update(id);
       message.success("Cập nhật sinh viên thành công!");
-      fetchStudents(); // Gọi lại để reload dữ liệu
+      fetchStudents();
     } catch (error) {
       console.error("Cập nhật thất bại:", error);
       message.error("Cập nhật sinh viên thất bại!");
@@ -78,12 +61,18 @@ const ManageStudents = () => {
 
   const handleSearch = async (name) => {
     try {
-      await search(name);
-      // message.success("Cập nhật sinh viên thành công!");
-      fetchStudents(); // Gọi lại để reload dữ liệu
+      const res = await search(name);
+      const students = res?.data || [];
+      setDataSource(
+        students.map((item, index) => ({
+          key: item.studentId || `student-${index}`,
+          ...item,
+        }))
+      );
     } catch (error) {
       console.error("Tìm kiếm thất bại:", error);
-      // message.error("Cập nhật sinh viên thất bại!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,11 +81,19 @@ const ManageStudents = () => {
       await create(values);
       message.success("Thêm sinh viên thành công!");
       setOpenDrawer(false);
-      fetchStudents(); // Gọi lại để reload dữ liệu
+      fetchStudents();
     } catch (error) {
       console.error("Thêm thất bại:", error);
       message.error("Thêm sinh viên thất bại!");
     }
+  };
+
+  const debouncedSearch = debounce(handleSearch, 5);
+
+  const handleSearchInputChange = (e) => {
+    const value = e.target.value;
+    setSearchText(value);
+    debouncedSearch(value);
   };
 
   const columns = [
@@ -143,19 +140,14 @@ const ManageStudents = () => {
         marginBottom: "16px",
       }}
     >
-      {/* <Input
-        size="large"
-        placeholder="large size"
-        prefix={<SearchOutlined />}
-      /> */}
       <div>
         <Space.Compact>
           <Input
-            // size="large"
-            style={{ width: "80%" }}
-            placeholder="Tìm kiếm học sinh"
+            style={{ width: "70%" }}
+            placeholder="Tìm kiếm"
             prefix={<SearchOutlined />}
-            onChange={handleSearch}
+            value={searchText}
+            onChange={handleSearchInputChange}
           />
         </Space.Compact>
         <Button

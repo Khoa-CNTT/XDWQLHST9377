@@ -36,7 +36,7 @@ export const deleteStudent = (payload) => {
 
 export const search = (payload) => {
   return api.makeRequest({
-    url: `/student/search/${payload}`,
+    url: `/student/search?name=${payload}`,
     method: "GET",
   });
 };
