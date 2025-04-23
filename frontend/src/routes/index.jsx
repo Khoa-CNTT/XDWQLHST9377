@@ -4,13 +4,16 @@ import {
   Route,
   Routes,
   createHashRouter,
+  useNavigate,
 } from "react-router-dom";
 
+import { useEffect } from "react";
 import Error404 from "../screens/errorpage/Error";
 import { isLoggedInText } from "../utils/constants";
 import { getLocalData } from "../services/localStorage";
 import Dashboard from "../layouts";
 import SignInSide from "../screens/login/login.screen";
+import HomePage from "../screens/home/home.screen";
 
 function isLoggedIn() {
   return getLocalData(isLoggedInText);
@@ -34,8 +37,17 @@ function ProtectedRoute({ children }) {
 }
 
 function MainRoutes() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("home", { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <Routes>
+      <Route path="/home" element={<HomePage />} />
       <Route path="*" element={<Error404 />} />
       <Route
         path="/login"
