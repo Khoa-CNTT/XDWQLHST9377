@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -28,8 +29,8 @@ public class AccountServiceImp implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public ResponseEntity<?> create(CreateAccountRequest request) {
-        Optional<AccountEntity> existingAccount = accountRepository.findByUserName(request.getUsername());
+    public ResponseEntity<AccountDTO> create(CreateAccountRequest request) {
+        Optional<AccountEntity> existingAccount = accountRepository.findByUserNameContainingIgnoreCase(request.getUsername());
 
         if (existingAccount.isPresent()) {
             throw new UserNameAlreadyExistException(request.getUsername());
@@ -59,8 +60,8 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public ResponseEntity<?> delete(String name) {
-        Optional<AccountEntity> optionalAccount = accountRepository.findByUserName(name);
+    public ResponseEntity<?> delete(UUID id) {
+        Optional<AccountEntity> optionalAccount = accountRepository.findById(id);
         if (optionalAccount.isPresent()) {
             accountRepository.delete(optionalAccount.get());
             return ResponseEntity.ok("Success");
@@ -70,10 +71,9 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public ResponseEntity<List<AccountDTO>> search(String name) {
-        Optional<AccountEntity> accountEntityOptional = accountRepository.findByUserName(name);
+        Optional<AccountEntity> accountEntityOptional = accountRepository.findByUserNameContainingIgnoreCase(name);
         if (accountEntityOptional.isPresent()) {
-            accountRepository.findByUserName(name);
-            return ResponseEntity.ok(accountRepository.findByUserName(name).stream().map(AccountDTO::new).toList());
+            return ResponseEntity.ok(accountEntityOptional.stream().map(AccountDTO::new).toList());
         }
         throw new AccountNotFoundException();
     }

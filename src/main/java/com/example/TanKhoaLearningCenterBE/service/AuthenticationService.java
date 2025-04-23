@@ -38,7 +38,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = accountRepository.findByUserName(request.getUsername())
+        var user = accountRepository.findByUserNameContainingIgnoreCase(request.getUsername())
                 .orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);

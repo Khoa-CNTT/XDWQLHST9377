@@ -6,11 +6,12 @@ import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface AccountService {
-    ResponseEntity<?> create(CreateAccountRequest request);
+    ResponseEntity<AccountDTO> create(CreateAccountRequest request);
 
-    ResponseEntity<?> delete(String name);
+    ResponseEntity<?> delete(UUID id);
 
     ResponseEntity<PageResponse<AccountDTO>> getAll(Integer page, Integer size);
 

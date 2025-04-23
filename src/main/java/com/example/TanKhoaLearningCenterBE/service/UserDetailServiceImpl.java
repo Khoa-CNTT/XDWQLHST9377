@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var userAccountEntity = accountRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        var userAccountEntity = accountRepository.findByUserNameContainingIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         log.info("******** loadUserByUsername:{}", userAccountEntity);
         return new User(userAccountEntity.getUsername(), userAccountEntity.getPassword(), true

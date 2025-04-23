@@ -21,7 +21,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> accountRepository.findByUserName(username)
+        return username -> accountRepository.findByUserNameContainingIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException(ErrorMessages.ACCOUNT_NOT_FOUND.getMessage()));
     }
 

@@ -20,7 +20,7 @@ public class AccountController {
         return accountService.create(account);
     }
 
-    @PostMapping("/{name}")
+    @GetMapping("/search")
     public ResponseEntity<List<AccountDTO>> search(@RequestParam String name){
         return accountService.search(name);
     }
