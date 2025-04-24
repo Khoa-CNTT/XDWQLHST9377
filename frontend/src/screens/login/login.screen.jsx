@@ -1,3 +1,10 @@
+import * as React from "react";
+import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import authSlice from "../../toolkits/auth/slice";
+import { AuthWrapper } from "./login.style";
+import * as Yup from "yup";
+import { motion } from "framer-motion";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -7,7 +14,6 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  Grid,
   IconButton,
   Input,
   InputAdornment,
@@ -15,19 +21,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Formik } from "formik";
-import { motion } from "framer-motion";
-import React from "react";
-import { useDispatch } from "react-redux";
-import * as Yup from "yup";
+import Grid from "@mui/material/Grid2";
 
-import alertSlice from "../../toolkits/alert/slice";
-import authSlice from "../../toolkits/auth/slice";
-import { AuthWrapper } from "./login.style";
-
-const Login = () => {
+const SignInSide = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useDispatch();
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const onLoginBtnClicked = (values) => {
     if (values.username === "") {
@@ -43,49 +43,15 @@ const Login = () => {
     dispatch(authSlice.actions.login(values));
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
-        <Grid item container xs={12} justifyContent="center">
+        <Grid container justifyContent="center">
           <Typography variant="h3" sx={{ fontSize: "2rem" }}>
             Đăng nhập
           </Typography>
-          {/* <Stack direction="column" alignItems={"center"}>
-            <Typography variant="h3" sx={{ fontSize: "1.5rem" }}>
-              Login
-            </Typography>
-            <FormControl sx={{ pt: "1.5ch" }}>
-              <RadioGroup
-                row
-                aria-labelledby="auth-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-                defaultValue="viewer"
-              >
-                <FormControlLabel
-                  value="viewer"
-                  control={<Radio />}
-                  label="Viewer"
-                />
-                <FormControlLabel
-                  value="editer"
-                  control={<Radio />}
-                  label="Editer"
-                />
-                <FormControlLabel
-                  value="manager"
-                  control={<Radio />}
-                  label="Manager"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Stack> */}
         </Grid>
-
-        <Grid item xs={12}>
+        <Grid>
           <>
             <Formik
               initialValues={{
@@ -111,16 +77,13 @@ const Login = () => {
               }) => (
                 <form noValidate onSubmit={handleSubmit}>
                   <Grid container spacing={3}>
-                    <Grid item xs={12}>
+                    <Grid>
                       <Stack spacing={1}>
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <AccountCircle
                             sx={{ color: "action.active", mr: 1, my: 0.5 }}
                           />
-                          <FormControl
-                            sx={{ width: "100%" }}
-                            variant="standard"
-                          >
+                          <FormControl sx={{ width: 300 }} variant="standard">
                             <InputLabel htmlFor="standard-adornment-username">
                               Tên đăng nhập
                             </InputLabel>
@@ -148,16 +111,13 @@ const Login = () => {
                         )}
                       </Stack>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid>
                       <Stack spacing={1}>
                         <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                           <LockIcon
                             sx={{ color: "action.active", mr: 1, my: 0.5 }}
                           />
-                          <FormControl
-                            sx={{ width: "100%" }}
-                            variant="standard"
-                          >
+                          <FormControl sx={{ width: 300 }} variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">
                               Mật khẩu
                             </InputLabel>
@@ -199,7 +159,7 @@ const Login = () => {
                         )}
                       </Stack>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid>
                       <motion.div
                         whileHover={{ scale: 1 }}
                         whileTap={{ scale: 0.9 }}
@@ -226,4 +186,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignInSide;
