@@ -2,12 +2,23 @@ import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import logo from "../../assets/imgs/small.png";
 import { navItems } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const HomeHeader = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleNavItemClick = (href) => {
+    navigate(href);
+    setMobileDrawerOpen(false);
   };
 
   return (
@@ -21,17 +32,19 @@ const HomeHeader = () => {
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
               <li key={index}>
-                <a href={item.href}>{item.label}</a>
+                <button onClick={() => handleNavItemClick(item.href)}>
+                  {item.label}
+                </button>
               </li>
             ))}
           </ul>
           <div className="hidden lg:flex justify-center space-x-12 items-center">
-            <a
-              href="#"
+            <button
+              onClick={handleLoginClick}
               className="bg-gradient-to-r from-orange-500 to-orange-800 rounded-md py-2 px-3"
             >
               Đăng nhập
-            </a>
+            </button>
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -44,17 +57,19 @@ const HomeHeader = () => {
             <ul>
               {navItems.map((item, index) => (
                 <li key={index} className="py-4">
-                  <a href={item.href}>{item.label}</a>
+                  <button onClick={() => handleNavItemClick(item.href)}>
+                    {item.label}
+                  </button>
                 </li>
               ))}
             </ul>
             <div className="flex space-x-6">
-              <a
-                href="#"
+              <button
+                onClick={handleLoginClick}
                 className="bg-gradient-to-r from-orange-500 to-orange-800 rounded-md py-2 px-3 not-first"
               >
                 Đăng nhập
-              </a>
+              </button>
             </div>
           </div>
         )}

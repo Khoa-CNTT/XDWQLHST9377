@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   createHashRouter,
+  useLocation,
   useNavigate,
 } from "react-router-dom";
 
@@ -20,7 +21,7 @@ function isLoggedIn() {
 }
 
 function GuestGuard({ children }) {
-  // console.log();
+  console.log(children);
   if (isLoggedIn()) {
     return <Navigate to={"/"} />;
   }
@@ -38,12 +39,19 @@ function ProtectedRoute({ children }) {
 
 function MainRoutes() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!isLoggedIn()) {
+    if (location.pathname === "/") {
+      navigate("/home", { replace: true });
+    } else if (
+      !isLoggedIn() &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/home"
+    ) {
       navigate("home", { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, isLoggedIn, location.pathname]);
 
   return (
     <Routes>
