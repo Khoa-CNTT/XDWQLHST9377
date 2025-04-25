@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import backgroundImage from "../../assets/imgs/background.png";
 
-import MainCard from "../../components/card";
+import MainCard from "../../components/cards";
 
 export const AuthWrapper = ({ children }) => (
   <Box

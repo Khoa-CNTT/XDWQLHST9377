@@ -1,5 +1,7 @@
 export const isLoggedInText = "isLoggedIn";
 
+export const roles = "role";
+
 export const admin = "ADMIN";
 
 export const teacher = "TEACHER";
