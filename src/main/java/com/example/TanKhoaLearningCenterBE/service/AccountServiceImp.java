@@ -41,12 +41,15 @@ public class AccountServiceImp implements AccountService {
         acct.setPassWord(encoder.encode(request.getPassword()));
         acct.setRole(request.getRole());
         var saveAcct = accountRepository.save(acct);
+//        log.info("***Create account: {}", saveAcct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDTO(saveAcct));
     }
 
     @Override
     public ResponseEntity<PageResponse<AccountDTO>> getAll(Integer page, Integer size) {
+        log.info("***page response: {}, {}", page, size);
+
         Pageable pageable = PageRequest.of(page, size);
         Page<AccountEntity> accounts = accountRepository.findAll(pageable);
         List<AccountDTO> rows = accounts.getContent().stream().map(AccountDTO::new).toList();
@@ -70,10 +73,11 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public ResponseEntity<List<AccountDTO>> search(String name) {
+    public ResponseEntity<Optional<AccountDTO>> search(String name) {
         Optional<AccountEntity> accountEntityOptional = accountRepository.findByUserNameContainingIgnoreCase(name);
         if (accountEntityOptional.isPresent()) {
-            return ResponseEntity.ok(accountEntityOptional.stream().map(AccountDTO::new).toList());
+//            return ResponseEntity.ok(accountEntityOptional.stream().map(AccountDTO::new).toList());
+            return null;
         }
         throw new AccountNotFoundException();
     }

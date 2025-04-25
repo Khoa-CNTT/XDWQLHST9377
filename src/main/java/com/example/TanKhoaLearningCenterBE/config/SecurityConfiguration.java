@@ -38,8 +38,7 @@ public class SecurityConfiguration {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-ui.html",
-            "/api/student/**",
-            "/api/account/**"
+            "/api/student/**"
     };
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final LogoutHandler logoutHandler;
@@ -51,13 +50,7 @@ public class SecurityConfiguration {
 //                //allows for POST, PUT, GET, DELETE mapping with authorization
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers(WHITE_LIST_URL)
-                                .permitAll()
-                                .requestMatchers("/api/management/**").hasAnyRole(ADMIN.name(), TEACHER.name(), STUDENT.name(), PARENT.name())
-                                .requestMatchers(GET, "/api/management/**").hasAnyAuthority(ADMIN_READ.name())
-                                .requestMatchers(POST, "/api/management/**").hasAnyAuthority(ADMIN_CREATE.name())
-                                .requestMatchers(PUT, "/api/management/**").hasAnyAuthority(ADMIN_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/management/**").hasAnyAuthority(ADMIN_DELETE.name())
+                        req.requestMatchers(WHITE_LIST_URL).permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
