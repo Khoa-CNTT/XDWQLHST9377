@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @PreAuthorize("hasRole('ADMIN')")
 @RestController
-@RequestMapping("account")
+@RequestMapping("/api/account")
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;

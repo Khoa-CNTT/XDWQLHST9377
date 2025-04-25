@@ -2,6 +2,7 @@ package com.example.TanKhoaLearningCenterBE.utils.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static com.example.TanKhoaLearningCenterBE.utils.user.Permission.*;
 
-
+@Slf4j
 @RequiredArgsConstructor
 public enum Role {
     USER(Collections.emptySet()),
