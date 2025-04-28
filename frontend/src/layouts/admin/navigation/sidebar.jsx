@@ -15,8 +15,8 @@ const items = [
     label: "Authenticate",
     icon: <LockOutlined />,
     children: [
-      { key: "5", label: "Option 5" },
-      { key: "6", label: "Option 6" },
+      { key: "manageAccounts", label: "Manage Accounts" },
+      { key: "create", label: "**" },
     ],
   },
   {

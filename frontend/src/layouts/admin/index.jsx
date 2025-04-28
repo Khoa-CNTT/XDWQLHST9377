@@ -4,8 +4,8 @@ import AppHeader from "./navigation/header";
 import AppFooter from "./navigation/footer";
 import AppContent from "./navigation/content";
 import AppSider from "./navigation/sidebar";
-import BreadCrumb from "../components/breadcrumbs";
-import ManageStudents from "../components/students";
+import BreadCrumb from "../../components/breadcrumbs";
+import ManageStudents from "./page/student.list";
 
 const componentMap = {
   dashboard: () => (
@@ -19,7 +19,7 @@ const componentMap = {
   listAlls: () => <ManageStudents />,
 };
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState("dashboard");
 
   const handleMenuItemClick = (e) => {
@@ -58,4 +58,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

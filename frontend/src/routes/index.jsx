@@ -12,10 +12,11 @@ import { useEffect } from "react";
 import Error404 from "../screens/errorpage/Error";
 import { isLoggedInText, roles } from "../utils/constants";
 import { getLocalData } from "../services/localStorage";
-import Dashboard from "../layouts";
+import Dashboard from "../layouts/admin";
 import SignInSide from "../screens/login/login.screen";
 import HomePage from "../screens/home/home.screen";
 import { useSelector } from "react-redux";
+import AdminDashboard from "../layouts/admin";
 
 function isLoggedIn() {
   return getLocalData(isLoggedInText);
@@ -109,7 +110,7 @@ function MainRoutes() {
           path="/admin"
           element={
             <RoleBasedRoute allowedRoles={["ADMIN"]}>
-              <Dashboard />
+              <AdminDashboard />
             </RoleBasedRoute>
           }
         />
