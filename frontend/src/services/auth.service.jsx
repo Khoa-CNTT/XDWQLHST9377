@@ -6,7 +6,7 @@ const api = createApiService({
 
 export const login = (payload) => {
   return api.makeRequest({
-    url: "/auth/authenticate",
+    url: "/api/auth/authenticate",
     method: "POST",
     data: payload,
   });
@@ -14,7 +14,7 @@ export const login = (payload) => {
 
 export const logout = () => {
   return api.makeRequest({
-    url: "/auth/logout",
+    url: "/api/auth/logout",
     method: "POST",
   });
 };

@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import logo from "../../assets/imgs/small.png";
 import { navItems } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../services/auth.service";
+import { setLocalData } from "../../services/localStorage";
+import { isLoggedInText } from "../../utils/constants";
 
 const HomeHeader = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -14,6 +17,24 @@ const HomeHeader = () => {
 
   const handleLoginClick = () => {
     navigate("/login");
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const response = await logout();
+
+      if (response.status === 200) {
+        setLocalData(isLoggedInText, false);
+        window.location.reload();
+        message.success("Đăng xuất thành công!");
+      } else {
+        const errorData = response.data || { message: "Lỗi không xác định" };
+        message.error(`Đăng xuất thất bại: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API đăng xuất:", error);
+      message.error("Đã xảy ra lỗi khi đăng xuất.");
+    }
   };
 
   const handleNavItemClick = (href) => {
@@ -45,6 +66,12 @@ const HomeHeader = () => {
             >
               Đăng nhập
             </button>
+            <button
+              onClick={handleSignOut}
+              className="bg-gradient-to-r from-orange-500 to-orange-800 rounded-md py-2 px-3"
+            >
+              Đăng Xuất
+            </button>
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -66,7 +93,7 @@ const HomeHeader = () => {
             <div className="flex space-x-6">
               <button
                 onClick={handleLoginClick}
-                className="bg-gradient-to-r from-orange-500 to-orange-800 rounded-md py-2 px-3 not-first"
+                className="bg-gradiengitt-to-r from-orange-500 to-orange-800 rounded-md py-2 px-3 not-first"
               >
                 Đăng nhập
               </button>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getLocalData } from "../../services/localStorage";
-import { isLoggedInText } from "../../utils/constants";
+import { getLocalData, setLocalData } from "../../services/localStorage";
+import { isLoggedInText, roles } from "../../utils/constants";
 
 const initialState = {
   userData: {
@@ -11,7 +11,7 @@ const initialState = {
   isLoggedIn: getLocalData(isLoggedInText)
     ? getLocalData(isLoggedInText)
     : false,
-  role: getLocalData("role") ? getLocalData("role") : "user",
+  role: getLocalData(roles) ? getLocalData(roles) : "user",
   errorMassage: false,
 };
 
@@ -25,8 +25,13 @@ const reducer = createSlice({
     loginSuccess: (state, action) => {
       state.isLoggedIn = true;
       state.role = action.payload;
+      setLocalData(roles, action.payload);
+      setLocalData(isLoggedInText, true);
     },
-    logout: (state, action) => {},
+    logout: (state, action) => {
+      state.isLoggedIn = false;
+      state.role = "user";
+    },
   },
 });
 

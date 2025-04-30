@@ -2,7 +2,7 @@ import { all, call, put, takeEvery } from "redux-saga/effects";
 
 import { login, logout } from "../../services/auth.service";
 import { removeLocalData, setLocalData } from "../../services/localStorage";
-import { isLoggedInText } from "../../utils/constants";
+import { isLoggedInText, roles } from "../../utils/constants";
 import authSlice from "./slice";
 import alertSlice from "../alert/slice";
 
@@ -12,13 +12,15 @@ function* loginSaga({ payload }) {
     if (response.status === 200) {
       const data = response.data;
       const { accessToken, role } = data;
+      console.log("****data saga: ", data);
       if (accessToken) {
         setLocalData(isLoggedInText, true);
         setLocalData("accessToken", accessToken);
-        setLocalData("role", role);
+        setLocalData(roles, role);
         yield put(authSlice.actions.loginSuccess(role));
-        window.location.reload();
+        // window.location.reload();
         yield put(alertSlice.actions.success("Đăng nhập thành công"));
+        window.location.reload();
       } else {
         console.log("**Error");
       }
@@ -46,7 +48,7 @@ function* logoutSaga() {
   } finally {
     removeLocalData(isLoggedInText);
     removeLocalData("accessToken");
-    removeLocalData("role");
+    removeLocalData(roles);
     window.location.reload();
   }
 }

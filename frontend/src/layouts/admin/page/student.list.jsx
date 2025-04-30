@@ -8,8 +8,8 @@ import {
   create,
   update,
   search,
-} from "../../services/student.service";
-import AddStudentDrawer from "../drawers";
+} from "../../../services/student.service";
+import AddStudentDrawer from "../../../components/drawers";
 import { debounce } from "lodash";
 
 const ManageStudents = () => {
