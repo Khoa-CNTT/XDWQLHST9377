@@ -4,17 +4,7 @@ import { Breadcrumb } from "antd";
 
 const breadcrumbMap = {
   dashboard: [{ title: "Dashboard" }],
-  student: [
-    {
-      title: (
-        <>
-          <UserOutlined />
-          <span>Học Sinh</span>
-        </>
-      ),
-    },
-  ],
-  listAlls: [
+  manageStudents: [
     {
       title: (
         <>
@@ -24,6 +14,17 @@ const breadcrumbMap = {
       ),
     },
     { title: "Danh sách học sinh" },
+  ],
+  manageAccounts: [
+    {
+      title: (
+        <>
+          <UserOutlined />
+          <span>Tài khoản</span>
+        </>
+      ),
+    },
+    { title: "Danh sách tài khoản" },
   ],
 };
 

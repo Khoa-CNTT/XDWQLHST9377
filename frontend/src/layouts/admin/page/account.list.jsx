@@ -3,34 +3,34 @@ import { Table, Button, Typography, message, Input, Space } from "antd";
 import { DeleteFilled, EditFilled, SearchOutlined } from "@ant-design/icons";
 import {
   getall,
-  deleteStudent,
+  deleteAccount,
   create,
   update,
   search,
-} from "../../../services/student.service";
+} from "../../../services/account.service";
 import AddStudentDrawer from "../../../components/drawers";
 import { debounce } from "lodash";
 
-const ManageStudents = () => {
+const ManageAccounts = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [searchText, setSearchText] = useState("");
 
-  const fetchStudents = async () => {
+  const fetchAccounts = async () => {
     setLoading(true);
     try {
       const res = await getall();
       console.log("**res", res);
-      const students = res?.data?.rows || [];
+      const accounts = res?.data?.rows || [];
       setDataSource(
-        students.map((item, index) => ({
-          key: item.studentId || `student-${index}`,
+        accounts.map((item, index) => ({
+          key: item.accountId || `account-${index}`,
           ...item,
         }))
       );
     } catch (error) {
-      console.error("Failed to fetch students:", error);
+      console.error("Failed to fetch accounts:", error);
     } finally {
       setLoading(false);
     }
@@ -38,9 +38,9 @@ const ManageStudents = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteStudent(id);
+      await deleteAccount(id);
       message.success("Xóa sinh viên thành công!");
-      fetchStudents();
+      fetchAccounts();
     } catch (error) {
       console.error("Xóa thất bại:", error);
       message.error("Xóa sinh viên thất bại!");
@@ -61,10 +61,10 @@ const ManageStudents = () => {
   const handleSearch = async (name) => {
     try {
       const res = await search(name);
-      const students = res?.data || [];
+      const accounts = res?.data || [];
       setDataSource(
-        students.map((item, index) => ({
-          key: item.studentId || `student-${index}`,
+        accounts.map((item, index) => ({
+          key: item.accountId || `account-${index}`,
           ...item,
         }))
       );
@@ -80,7 +80,7 @@ const ManageStudents = () => {
       await create(values);
       message.success("Thêm sinh viên thành công!");
       setOpenDrawer(false);
-      fetchStudents();
+      fetchAccounts();
     } catch (error) {
       console.error("Thêm thất bại:", error);
       message.error("Thêm sinh viên thất bại!");
@@ -97,9 +97,9 @@ const ManageStudents = () => {
 
   const columns = [
     { title: "Id", dataIndex: "id", key: "id", fixed: "left" },
-    { title: "Họ tên", dataIndex: "name", key: "name" },
-    { title: "Số điện thoại", dataIndex: "phoneNumber", key: "phoneNumber" },
-    { title: "Email", dataIndex: "email", key: "email" },
+    { title: "Tên đăng nhập", dataIndex: "username", key: "username" },
+    { title: "Mật khẩu", dataIndex: "password", key: "password" },
+    { title: "Vai Trò", dataIndex: "role", key: "role" },
     {
       title: "Hành đông",
       key: "action",
@@ -127,23 +127,24 @@ const ManageStudents = () => {
   };
 
   useEffect(() => {
-    fetchStudents();
+    fetchAccounts();
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        marginBottom: "16px",
-      }}
-    >
-      <div>
+    <div style={{ width: "100%" }}>
+      {" "}
+      {/* Ensure full width */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "16px",
+        }}
+      >
         <Space.Compact>
           <Input
-            style={{ width: "70%" }}
-            placeholder="Tìm kiếm"
+            style={{ width: 250 }}
+            placeholder="Search Accounts"
             prefix={<SearchOutlined />}
             value={searchText}
             onChange={handleSearchInputChange}
@@ -151,20 +152,19 @@ const ManageStudents = () => {
         </Space.Compact>
         <Button
           type="primary"
-          icon={<SearchOutlined />}
-          style={{ marginBottom: "8px" }}
           onClick={showDrawer}
+          style={{ marginLeft: "8px" }}
         >
-          Thêm học sinh
+          Thêm tài khoản
         </Button>
       </div>
       <Table
         columns={columns}
         dataSource={dataSource}
+        loading={loading}
         scroll={{ x: 1500 }}
         sticky={{ offsetHeader: 64 }}
         pagination={true}
-        loading={loading}
       />
       <AddStudentDrawer
         open={openDrawer}
@@ -174,4 +174,5 @@ const ManageStudents = () => {
     </div>
   );
 };
-export default ManageStudents;
+
+export default ManageAccounts;
