@@ -20,8 +20,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
         var userAccountEntity = accountRepository.findByUserNameContainingIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         log.info("******** loadUserByUsername:{}", userAccountEntity);
+
         return new User(userAccountEntity.getUsername(), userAccountEntity.getPassword(), true
                 , true, true, true, userAccountEntity.getAuthorities());
     }
-
 }

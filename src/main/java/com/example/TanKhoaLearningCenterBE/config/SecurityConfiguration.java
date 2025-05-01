@@ -1,6 +1,5 @@
 package com.example.TanKhoaLearningCenterBE.config;
 
-import com.example.TanKhoaLearningCenterBE.service.UserDetailServiceImpl;
 import com.example.TanKhoaLearningCenterBE.web.rest.filter.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import static com.example.TanKhoaLearningCenterBE.utils.user.Role.*;
 import static com.example.TanKhoaLearningCenterBE.utils.user.Permission.*;
 import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -27,7 +25,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
     private static final String[] WHITE_LIST_URL = {
-            "/api/auth/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -37,9 +34,7 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html",
-            "/api/student/**",
-            "/api/account/**"
+            "/swagger-ui.html"
     };
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final LogoutHandler logoutHandler;
@@ -51,13 +46,8 @@ public class SecurityConfiguration {
 //                //allows for POST, PUT, GET, DELETE mapping with authorization
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers(WHITE_LIST_URL)
-                                .permitAll()
-                                .requestMatchers("/api/management/**").hasAnyRole(ADMIN.name(), TEACHER.name(), STUDENT.name(), PARENT.name())
-                                .requestMatchers(GET, "/api/management/**").hasAnyAuthority(ADMIN_READ.name())
-                                .requestMatchers(POST, "/api/management/**").hasAnyAuthority(ADMIN_CREATE.name())
-                                .requestMatchers(PUT, "/api/management/**").hasAnyAuthority(ADMIN_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/management/**").hasAnyAuthority(ADMIN_DELETE.name())
+                        req.requestMatchers(WHITE_LIST_URL).permitAll()
+                                .requestMatchers(POST,"/api/auth/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
