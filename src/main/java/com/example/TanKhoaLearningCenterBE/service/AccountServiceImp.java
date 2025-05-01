@@ -66,8 +66,8 @@ public class AccountServiceImp implements AccountService {
     public ResponseEntity<?> delete(UUID id) {
         Optional<AccountEntity> optionalAccount = accountRepository.findById(id);
         if (optionalAccount.isPresent()) {
-            accountRepository.delete(optionalAccount.get());
-            return ResponseEntity.ok("Success");
+            accountRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         throw new AccountNotFoundException();
     }

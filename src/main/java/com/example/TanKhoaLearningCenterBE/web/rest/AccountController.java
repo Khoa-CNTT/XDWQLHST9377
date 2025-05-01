@@ -9,12 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @PreAuthorize("hasRole('ADMIN')")
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/api/account")     
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
@@ -22,6 +22,11 @@ public class AccountController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody CreateAccountRequest account) {
         return accountService.create(account);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        return accountService.delete(id);
     }
 
     @GetMapping("/search")
