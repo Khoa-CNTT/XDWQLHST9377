@@ -9,6 +9,7 @@ import AppSider from "./navigation/sidebar";
 import { ColorModeContext, useMode } from "../../themes/theme";
 import "./index.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import ManageAccounts from "./page/account.list";
 
 const componentMap = {
   dashboard: () => (
@@ -19,7 +20,8 @@ const componentMap = {
       Dashboard Content
     </div>
   ),
-  listAlls: () => <ManageStudents />,
+  manageStudents: () => <ManageStudents />,
+  manageAccounts: () => <ManageAccounts />,
 };
 
 const AdminDashboard = () => {
@@ -74,7 +76,14 @@ const AdminDashboard = () => {
           />
           <main className="content">
             <AppHeader setIsSidebar={setIsSidebar} />
-            <Layout style={{ flexDirection: "column", flex: 1, marginLeft: 0 }}>
+            <Layout
+              style={{
+                minHeight: "91vh",
+                flexDirection: "column",
+                flex: 1,
+                marginLeft: 0,
+              }}
+            >
               <BreadCrumb selectedMenuItem={selectedMenuItem} />
               <AppContent>{renderContent()}</AppContent>
               <AppFooter

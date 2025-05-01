@@ -10,13 +10,16 @@ const AppContent = ({ children }) => {
   } = theme.useToken();
 
   return (
-    <Content style={{ margin: "24px 16px 0" }}>
+    <Content style={{ margin: "24px 16px 0", overflowX: "hidden" }}>
       <div
         style={{
           padding: 24,
           minHeight: 360,
           background: colorBgContainer,
           borderRadius: borderRadiusLG,
+          maxWidth: "1200px", // hoặc 100%, hoặc 90vw
+          margin: "0 auto", // căn giữa
+          overflowX: "auto", // phòng trường hợp có bảng rộng
         }}
       >
         {children}
