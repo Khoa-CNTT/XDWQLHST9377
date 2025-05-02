@@ -6,6 +6,7 @@ import com.example.TanKhoaLearningCenterBE.exception.AccountNotFoundException;
 import com.example.TanKhoaLearningCenterBE.exception.UserNameAlreadyExistException;
 import com.example.TanKhoaLearningCenterBE.repository.AccountRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateAccountRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,26 @@ public class AccountServiceImp implements AccountService {
 //        log.info("***Create account: {}", saveAcct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDTO(saveAcct));
+    }
+
+    @Override
+    public ResponseEntity<AccountDTO> put(UUID id, UpdateAccountRequest request) {
+        Optional<AccountEntity> accountOptional = accountRepository.findById(id);
+        if (accountOptional.isPresent()) {
+            AccountEntity acct = accountOptional.get();
+            if (!request.getUsername().isBlank()) {
+                acct.setUserName(request.getUsername());
+            }
+            if (!request.getPassword().isBlank()) {
+                acct.setPassWord(request.getPassword());
+            }
+            acct.setRole(request.getRole());
+
+            var res = accountRepository.save(acct);
+
+            return ResponseEntity.ok(new AccountDTO(res));
+        }
+        throw new AccountNotFoundException();
     }
 
     @Override

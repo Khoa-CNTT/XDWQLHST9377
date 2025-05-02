@@ -3,6 +3,7 @@ package com.example.TanKhoaLearningCenterBE.web.rest;
 import com.example.TanKhoaLearningCenterBE.dto.AccountDTO;
 import com.example.TanKhoaLearningCenterBE.service.AccountService;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateAccountRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class AccountController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         return accountService.delete(id);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<AccountDTO> put(@PathVariable UUID id, @RequestBody UpdateAccountRequest request) {
+        return accountService.put(id, request);
     }
 
     @GetMapping("/search")
