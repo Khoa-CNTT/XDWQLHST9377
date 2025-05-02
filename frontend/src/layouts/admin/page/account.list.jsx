@@ -10,12 +10,17 @@ import {
 } from "../../../services/account.service";
 import AddStudentDrawer from "../../../components/drawers";
 import { debounce } from "lodash";
+import EditModal from "../../../components/modal";
 
 const ManageAccounts = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [selectedRowData, setSelectedRowData] = useState(null);
+
+  console.log("***seletedRowData: ", selectedRowData);
 
   const fetchAccounts = async () => {
     setLoading(true);
@@ -36,6 +41,17 @@ const ManageAccounts = () => {
     }
   };
 
+  const handleEditClick = (record) => {
+    setSelectedRowData(record);
+    setIsModalOpen(true);
+    // console.log("***data row ", record);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedRowData(null);
+  };
+
   const handleDelete = async (id) => {
     try {
       await deleteAccount(id);
@@ -47,11 +63,18 @@ const ManageAccounts = () => {
     }
   };
 
-  const handleUpdate = async (id) => {
+  const handleUpdate = async (updatedData) => {
     try {
-      await update(id);
+      await update({
+        id: updatedData.id,
+        username: updatedData.username,
+        password: updatedData.password,
+        role: updatedData.role,
+      });
       message.success("Cập nhật sinh viên thành công!");
-      fetchStudents();
+      fetchAccounts();
+      setIsModalOpen(false); // Đóng modal sau khi thành công
+      setSelectedRowData(null); // Reset selected row data
     } catch (error) {
       console.error("Cập nhật thất bại:", error);
       message.error("Cập nhật sinh viên thất bại!");
@@ -110,7 +133,7 @@ const ManageAccounts = () => {
           <Typography.Link onClick={() => handleDelete(record.id)}>
             <DeleteFilled style={{ fontSize: "18px", color: "red" }} />
           </Typography.Link>
-          <Typography.Link>
+          <Typography.Link onClick={() => handleEditClick(record)}>
             <EditFilled style={{ fontSize: "18px", color: "#1890ff" }} />
           </Typography.Link>
         </div>
@@ -132,8 +155,6 @@ const ManageAccounts = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      {" "}
-      {/* Ensure full width */}
       <div
         style={{
           display: "flex",
@@ -170,6 +191,12 @@ const ManageAccounts = () => {
         open={openDrawer}
         onClose={closeDrawer}
         onCreate={handleCreate}
+      />
+      <EditModal
+        open={isModalOpen}
+        handleClose={handleModalClose}
+        rowData={selectedRowData}
+        onConfirm={handleUpdate}
       />
     </div>
   );

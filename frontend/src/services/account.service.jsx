@@ -25,8 +25,13 @@ export const create = (payload) => {
 
 export const update = (payload) => {
   return api.makeRequest({
-    url: `/api/account/update/${payload}`,
+    url: `/api/account/update/${payload.id}`,
     method: "PUT",
+    data: {
+      username: payload.username,
+      password: payload.password,
+      role: payload.role,
+    },
   });
 };
 

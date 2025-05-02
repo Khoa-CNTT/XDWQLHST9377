@@ -30,18 +30,6 @@ const AppHeader = () => {
   const colors = tokens(theme.palette.mode);
   const [collapsed, setCollapsed] = useState(false);
   const colorMode = useContext(ColorModeContext);
-  // const [theme, setTheme] = useState("light");
-
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
-    // Bạn sẽ cần prop `onCollapse` từ Layout component để thực sự thu gọn sidebar
-  };
-
-  // const toggleTheme = () => {
-  //   setTheme(theme === "light" ? "dark" : "light");
-  //   // Ở đây bạn sẽ cần logic để thay đổi theme của toàn ứng dụng
-  //   // Ví dụ: thay đổi class của body hoặc sử dụng Context API
-  // };
 
   const handleSignOut = async () => {
     try {
@@ -108,20 +96,7 @@ const AppHeader = () => {
     //     </Dropdown>
     //   </div>
     // </Header>
-    <Box display="flex" justifyContent="space-between" p={2}>
-      {/* SEARCH BAR */}
-      <Box
-        display="flex"
-        backgroundColor={colors.primary[400]}
-        borderRadius="3px"
-      >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
-      </Box>
-
-      {/* ICONS */}
+    <Box display="flex" p={2}>
       <Box display="flex">
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
