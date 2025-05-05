@@ -1,9 +1,9 @@
 package com.example.TanKhoaLearningCenterBE.entity;
 
+import com.example.TanKhoaLearningCenterBE.utils.bill.BillStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +15,13 @@ public class BillEntity extends AuditEntity {
     @Column(name = "billId")
     private UUID billId;
 
-    @Column(name = "billStatus")
-    private Boolean billStatus;
+    @Column(name = "billDetail", nullable = false, unique = true)
+    private String billContent;
+
+    @Column(name = "billStatus", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BillStatus billStatus;
+
+    @OneToOne(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private BillDetailEntity billDetailEntity;
 }

@@ -14,9 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static com.example.TanKhoaLearningCenterBE.utils.user.Role.*;
-import static com.example.TanKhoaLearningCenterBE.utils.user.Permission.*;
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -41,13 +39,13 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
 //                //allows for POST, PUT, GET, DELETE mapping with authorization
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL).permitAll()
-                                .requestMatchers(POST,"/api/auth/**").permitAll()
+                                .requestMatchers(POST, "/api/auth/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -56,8 +54,8 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
                         logout.logoutUrl("/api/auth/logout")
-                        .addLogoutHandler(logoutHandler)
-                        .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK))))
+                                .addLogoutHandler(logoutHandler)
+                                .logoutSuccessHandler(((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK))))
                 .build();
     }
 
