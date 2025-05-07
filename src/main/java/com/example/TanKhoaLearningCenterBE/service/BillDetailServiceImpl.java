@@ -8,42 +8,38 @@ import com.example.TanKhoaLearningCenterBE.entity.StudentEntity;
 import com.example.TanKhoaLearningCenterBE.exception.ParentNotFoundException;
 import com.example.TanKhoaLearningCenterBE.exception.StudentNotFoundException;
 import com.example.TanKhoaLearningCenterBE.repository.BillDetailRepository;
-import com.example.TanKhoaLearningCenterBE.repository.BillRepository;
 import com.example.TanKhoaLearningCenterBE.repository.ParentRepository;
 import com.example.TanKhoaLearningCenterBE.repository.StudentRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateBillDetailsRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BillDetailServiceImpl implements BillDetailService {
     private final BillDetailRepository billDetailRepository;
-    private final BillRepository billRepository;
     private final StudentRepository studentRepository;
     private final ParentRepository parentRepository;
 
     @Override
     public ResponseEntity<BillDetailDTO> update(UUID id, UpdateBillDetailsRequest request) {
-        BillEntity bill = billRepository.findById(id).orElseThrow(() -> new RuntimeException("Bill not found"));
+        BillDetailEntity billDetail = billDetailRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BillDetail not found for Bill ID: " + id));
 
-        if (bill.getBillDetailEntity() != null) {
-            return ResponseEntity.badRequest().build();
-        }
+        BillEntity bill = billDetail.getBill();billDetail.setDescription(request.getDescription());
+        billDetail.setAmount(request.getAmount());
+        billDetail.setCurrency(request.getCurrency());
+        billDetail.setPaymentStatus(bill.getBillStatus().toString());
 
         StudentEntity student = studentRepository.findById(request.getStudentId()).orElseThrow(StudentNotFoundException::new);
         ParentEntity parent = parentRepository.findById(request.getParentId()).orElseThrow(ParentNotFoundException::new);
 
-        BillDetailEntity billDetail = new BillDetailEntity();
-        billDetail.setBill(bill);
-        billDetail.setDescription(request.getDescription());
-        billDetail.setAmount(request.getAmount());
-        billDetail.setCurrency(request.getCurrency());
-        billDetail.setPaymentStatus(bill.getBillStatus().toString());
         billDetail.setStudent(student);
         billDetail.setParent(parent);
 
