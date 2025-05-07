@@ -1,95 +1,20 @@
-// import React, { useState } from "react";
-// import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-// // import "react-pro-sidebar/dist/css/styles.css";
-// import { Link } from "react-router-dom";
-// import {
-//   UserOutlined,
-//   LockOutlined,
-//   PieChartOutlined,
-// } from "@ant-design/icons";
-// import { Layout} from "antd";
-// import { Box, IconButton, Typography, useTheme } from "@mui/material";
-// import { tokens } from "../../../themes/theme";
-// import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-// import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-// import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-// import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-// import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-// import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-// import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-// import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-// import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-// import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-// import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-// import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-
-// const { Sider } = Layout;
-
-// const items = [
-//   { key: "dashboard", icon: <PieChartOutlined />, label: "Dashboard" },
-//   {
-//     key: "authenticate",
-//     label: "Authenticate",
-//     icon: <LockOutlined />,
-//     children: [
-//       { key: "manageAccounts", label: "Manage Accounts" },
-//       { key: "create", label: "**" },
-//     ],
-//   },
-//   {
-//     key: "student",
-//     label: "Học Sinh",
-//     icon: <UserOutlined />,
-//     children: [
-//       { key: "listAlls", label: "Danh sách học sinh" },
-//       { key: "create", label: "**" },
-//     ],
-//   },
-// ];
-
-// const AppSider = ({ onMenuItemClick, selectedKeys }) => {
-//   return (
-//     <Sider
-//       breakpoint="lg"
-//       collapsedWidth="0"
-//       onBreakpoint={(broken) => {
-//         console.log(broken);
-//       }}
-//       onCollapse={(collapsed, type) => {
-//         console.log(collapsed, type);
-//       }}
-//     >
-//       <div className="demo-logo-vertical" />
-//       <Menu
-//         theme="dark"
-//         mode="inline"
-//         defaultSelectedKeys={["dashboard"]}
-//         selectedKeys={selectedKeys}
-//         items={items}
-//         onClick={onMenuItemClick}
-//       />
-//     </Sider>
-//   );
-// };
-
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { tokens } from "../../../themes/theme";
+import logo from "../../../assets/imgs/small45.png";
 
-const Item = ({ title, to, icon, selected, setSelected, onClickKey }) => {
+const Item = ({ title, icon, selected, setSelected, onClickKey }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -118,27 +43,24 @@ const AppSider = ({ onMenuItemClick }) => {
     <Box
       sx={{
         ".ps-sidebar-inner": {
-          background: `${colors.primary[400]} !important`, // Đây là nơi thay đổi màu nền của Sidebar
+          background: `${colors.primary[400]} !important`,
         },
         ".ps-icon-wrapper": {
-          backgroundColor: "transparent !important", // Đảm bảo các icon không có nền
+          backgroundColor: "transparent !important",
         },
         ".ps-inner-item": {
-          padding: "5px 35px 5px 20px !important", // Điều chỉnh padding cho các item
+          padding: "5px 35px 5px 20px !important",
         },
         ".ps-inner-item:hover": {
-          // Đảm bảo hover có màu
           color: "#868dfb !important",
         },
         ".ps-menu-item.active": {
-          // Đảm bảo item đang active có màu đặc biệt
           color: "#6870fa !important",
         },
       }}
     >
       <Sidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
@@ -154,6 +76,9 @@ const AppSider = ({ onMenuItemClick }) => {
                 alignItems="center"
                 ml="15px"
               >
+                <div className="logo" style={{ width: 30, height: 30 }}>
+                  <img src={logo} />
+                </div>
                 <Typography variant="h3" color={colors.grey[100]}>
                   ADMIN
                 </Typography>
@@ -181,7 +106,7 @@ const AppSider = ({ onMenuItemClick }) => {
                   Harry Nguyen
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  Admin
                 </Typography>
               </Box>
             </Box>
@@ -189,57 +114,57 @@ const AppSider = ({ onMenuItemClick }) => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
-              title="Dashboard"
+              title="Tổng quan"
               to="/admin"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <SubMenu label="Accounts" icon={<PersonOutlinedIcon />}>
+            <SubMenu label="Tài khoản" icon={<PersonOutlinedIcon />}>
               <Item
-                title="Manage Account"
-                to="/team"
+                title="Quản lý tài khoản"
+                to="/manageAccounts"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
                 onClickKey={() => onMenuItemClick({ key: "manageAccounts" })}
               />
-              <Item
+              {/* <Item
                 title="Accounts Information"
                 to="/contacts"
                 icon={<ContactsOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </SubMenu>
 
-            <SubMenu label="Students">
+            <SubMenu label="Học sinh">
               <Item
-                title="Manage Student"
-                to="/form"
+                title="Quản lý học sinh"
+                to="/manageStudents"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
                 onClickKey={() => onMenuItemClick({ key: "manageStudents" })}
               />
-              <Item
+              {/* <Item
                 title="Calendar"
                 to="/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </SubMenu>
 
-            <SubMenu label="Teachers">
+            <SubMenu label="Giáo viên">
               <Item
-                title="Bar Chart"
-                to="/bar"
-                icon={<BarChartOutlinedIcon />}
+                title="Quản lý giáo viên"
+                to="/manageTeachers"
+                // icon={<BarChartOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* <Item
                 title="Pie Chart"
                 to="/pie"
                 icon={<PieChartOutlineOutlinedIcon />}
@@ -259,7 +184,24 @@ const AppSider = ({ onMenuItemClick }) => {
                 icon={<MapOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
+              /> */}
+            </SubMenu>
+
+            <SubMenu label="Phụ huynh">
+              <Item
+                title="Quản lý phụ huỵnh"
+                to="/manageParents"
+                // icon={<TimelineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
               />
+              {/* <Item
+                title="Geography Chart"
+                to="/geography"
+                icon={<MapOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              /> */}
             </SubMenu>
           </Box>
         </Menu>

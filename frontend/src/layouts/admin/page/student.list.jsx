@@ -131,15 +131,14 @@ const ManageStudents = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        marginBottom: "16px",
-      }}
-    >
-      <div>
+    <div style={{ width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "16px",
+        }}
+      >
         <Space.Compact>
           <Input
             style={{ width: "70%" }}
