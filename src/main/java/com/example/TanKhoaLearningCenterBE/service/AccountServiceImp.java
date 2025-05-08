@@ -5,6 +5,7 @@ import com.example.TanKhoaLearningCenterBE.entity.AccountEntity;
 import com.example.TanKhoaLearningCenterBE.exception.AccountNotFoundException;
 import com.example.TanKhoaLearningCenterBE.exception.UserNameAlreadyExistException;
 import com.example.TanKhoaLearningCenterBE.repository.AccountRepository;
+import com.example.TanKhoaLearningCenterBE.utils.user.Role;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateAccountRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateAccountRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -85,20 +87,33 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public ResponseEntity<?> delete(UUID id) {
-        Optional<AccountEntity> optionalAccount = accountRepository.findById(id);
-        if (optionalAccount.isPresent()) {
-            accountRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        AccountEntity currentUser = accountRepository.findByUserNameContainingIgnoreCase(currentUsername)
+                .orElseThrow(AccountNotFoundException::new);
+
+        if (id.equals(currentUser.getAccountId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Cannot delete your own account.");
         }
-        throw new AccountNotFoundException();
+
+        AccountEntity targetAccount = accountRepository.findById(id)
+                .orElseThrow(AccountNotFoundException::new);
+
+        if (targetAccount.getRole() == Role.ADMIN) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Cannot delete ADMIN account with id: " + targetAccount.getAccountId());
+        }
+
+        accountRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<Optional<AccountDTO>> search(String name) {
+    public ResponseEntity<List<AccountDTO>> search(String name) {
         Optional<AccountEntity> accountEntityOptional = accountRepository.findByUserNameContainingIgnoreCase(name);
         if (accountEntityOptional.isPresent()) {
-//            return ResponseEntity.ok(accountEntityOptional.stream().map(AccountDTO::new).toList());
-            return null;
+            return ResponseEntity.ok(accountEntityOptional.stream().map(AccountDTO::new).toList());
+//            return null;
         }
         throw new AccountNotFoundException();
     }

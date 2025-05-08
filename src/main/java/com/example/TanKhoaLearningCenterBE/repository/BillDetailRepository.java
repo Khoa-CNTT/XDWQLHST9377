@@ -4,8 +4,11 @@ import com.example.TanKhoaLearningCenterBE.entity.BillDetailEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface BillDetailRepository extends JpaRepository<BillDetailEntity, UUID> {
+    List<BillDetailEntity> findAllByParent_ParentId(UUID parentId);
+    List<BillDetailEntity> findAllByStudent_StudentId(UUID studentId);
 }

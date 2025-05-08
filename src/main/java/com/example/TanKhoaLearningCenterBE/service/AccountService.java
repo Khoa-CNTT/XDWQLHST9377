@@ -6,7 +6,7 @@ import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateAccountRequest
 import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 public interface AccountService {
@@ -18,5 +18,5 @@ public interface AccountService {
 
     ResponseEntity<PageResponse<AccountDTO>> getAll(Integer page, Integer size);
 
-    ResponseEntity<Optional<AccountDTO>> search(String input);
+    ResponseEntity<List<AccountDTO>> search(String input);
 }

@@ -20,11 +20,11 @@ public class BillDetailEntity extends AuditEntity{
     private BillEntity bill;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = true)
     private StudentEntity student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", nullable = true)
     private ParentEntity parent;
 
     @Column(name = "description", nullable = false)

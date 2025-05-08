@@ -1,8 +1,10 @@
 package com.example.TanKhoaLearningCenterBE.service;
 
 import com.example.TanKhoaLearningCenterBE.dto.StudentDTO;
+import com.example.TanKhoaLearningCenterBE.entity.BillDetailEntity;
 import com.example.TanKhoaLearningCenterBE.entity.StudentEntity;
 import com.example.TanKhoaLearningCenterBE.exception.StudentNotFoundException;
+import com.example.TanKhoaLearningCenterBE.repository.BillDetailRepository;
 import com.example.TanKhoaLearningCenterBE.repository.StudentRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateStudentRequest;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.UpdateStudentRequest;
@@ -23,6 +25,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class StudentServiceImp implements StudentService{
     private final StudentRepository studentRepository;
+    private final BillDetailRepository billDetailRepository;
 
     @Override
     public ResponseEntity<StudentDTO> create(CreateStudentRequest request) {
@@ -62,6 +65,11 @@ public class StudentServiceImp implements StudentService{
     @Override
     public ResponseEntity<?> delete(UUID id) {
         Optional<StudentEntity> optionalStudent = studentRepository.findById(id);
+        List<BillDetailEntity> details = billDetailRepository.findAllByStudent_StudentId(id);
+        for (BillDetailEntity detail : details) {
+            detail.setStudent(null);
+        }
+        billDetailRepository.saveAll(details);
         if (optionalStudent.isPresent()) {
             studentRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
