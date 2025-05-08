@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { getLocalData, removeLocalData } from "../localStorage";
-import { isLoggedInText } from "../../utils/constants";
+import { isLoggedInText, roles } from "../../utils/constants";
 
 const baseApi = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`,
@@ -33,7 +33,7 @@ baseApi.interceptors.response.use(
     ) {
       removeLocalData(isLoggedInText);
       removeLocalData("accessToken");
-      removeLocalData("role");
+      removeLocalData(roles);
       window.location.reload();
     }
 

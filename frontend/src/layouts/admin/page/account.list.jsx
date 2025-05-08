@@ -26,7 +26,7 @@ const ManageAccounts = () => {
     setLoading(true);
     try {
       const res = await getall();
-      console.log("**res", res);
+      // console.log("**res", res);
       const accounts = res?.data?.rows || [];
       setDataSource(
         accounts.map((item, index) => ({
@@ -52,14 +52,14 @@ const ManageAccounts = () => {
     setSelectedRowData(null);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, role) => {
     try {
-      await deleteAccount(id);
-      message.success("Xóa sinh viên thành công!");
+      await deleteAccount(id, role);
+      message.success("Xóa tài khoản thành công!");
       fetchAccounts();
     } catch (error) {
       console.error("Xóa thất bại:", error);
-      message.error("Xóa sinh viên thất bại!");
+      message.error("Xóa tài khoản thất bại!");
     }
   };
 
@@ -71,13 +71,13 @@ const ManageAccounts = () => {
         password: updatedData.password,
         role: updatedData.role,
       });
-      message.success("Cập nhật sinh viên thành công!");
+      message.success("Cập nhật tài khoản thành công!");
       fetchAccounts();
       setIsModalOpen(false); // Đóng modal sau khi thành công
       setSelectedRowData(null); // Reset selected row data
     } catch (error) {
       console.error("Cập nhật thất bại:", error);
-      message.error("Cập nhật sinh viên thất bại!");
+      message.error("Cập nhật tài khoản thất bại!");
     }
   };
 
@@ -101,12 +101,12 @@ const ManageAccounts = () => {
   const handleCreate = async (values) => {
     try {
       await create(values);
-      message.success("Thêm sinh viên thành công!");
+      message.success("Thêm tài khoản thành công!");
       setOpenDrawer(false);
       fetchAccounts();
     } catch (error) {
       console.error("Thêm thất bại:", error);
-      message.error("Thêm sinh viên thất bại!");
+      message.error("Thêm tài khoản thất bại!");
     }
   };
 
@@ -130,7 +130,7 @@ const ManageAccounts = () => {
       width: 110,
       render: (_, record) => (
         <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
-          <Typography.Link onClick={() => handleDelete(record.id)}>
+          <Typography.Link onClick={() => handleDelete(record.id, record.role)}>
             <DeleteFilled style={{ fontSize: "18px", color: "red" }} />
           </Typography.Link>
           <Typography.Link onClick={() => handleEditClick(record)}>

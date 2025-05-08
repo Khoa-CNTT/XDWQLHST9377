@@ -114,7 +114,7 @@ const AppSider = ({ onMenuItemClick }) => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
-              title="Tổng quan"
+              title="Tổng quan  "
               to="/admin"
               icon={<HomeOutlinedIcon />}
               selected={selected}
@@ -194,6 +194,7 @@ const AppSider = ({ onMenuItemClick }) => {
                 // icon={<TimelineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
+                onClickKey={() => onMenuItemClick({ key: "manageParents" })}
               />
               {/* <Item
                 title="Geography Chart"

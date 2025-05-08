@@ -10,6 +10,7 @@ import { ColorModeContext, useMode } from "../../themes/theme";
 import "./index.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import ManageAccounts from "./page/account.list";
+import ManageParents from "./page/parent.list";
 
 const componentMap = {
   dashboard: () => (
@@ -22,6 +23,7 @@ const componentMap = {
   ),
   manageStudents: () => <ManageStudents />,
   manageAccounts: () => <ManageAccounts />,
+  manageParents: () => <ManageParents />,
 };
 
 const AdminDashboard = () => {

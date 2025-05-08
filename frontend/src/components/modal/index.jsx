@@ -61,9 +61,9 @@ const EditModal = ({ open, handleClose, rowData, onConfirm }) => {
     handleClose();
   };
 
-  console.log("rowData.username:", rowData?.username);
-  console.log("rowData.password:", rowData?.password);
-  console.log("rowData.role:", rowData?.role);
+  // console.log("rowData.username:", rowData?.username);
+  // console.log("rowData.password:", rowData?.password);
+  // console.log("rowData.role:", rowData?.role);
 
   return (
     <Modal
