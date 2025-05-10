@@ -19,4 +19,9 @@ public class BillDetailsController {
     public ResponseEntity<BillDetailDTO> update(@PathVariable UUID id, @RequestBody UpdateBillDetailsRequest request) {
         return billDetailService.update(id, request);
     }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<BillDetailDTO> getbilldetail(@PathVariable UUID id) {
+        return billDetailService.get(id);
+    }
 }

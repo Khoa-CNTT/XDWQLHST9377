@@ -71,7 +71,7 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public ResponseEntity<PageResponse<AccountDTO>> getAll(Integer page, Integer size) {
-        log.info("***page response: {}, {}", page, size);
+//        log.info("***page response: {}, {}", page, size);
 
         Pageable pageable = PageRequest.of(page, size);
         Page<AccountEntity> accounts = accountRepository.findAll(pageable);

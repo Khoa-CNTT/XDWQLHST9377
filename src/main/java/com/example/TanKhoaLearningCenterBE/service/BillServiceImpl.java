@@ -12,11 +12,17 @@ import com.example.TanKhoaLearningCenterBE.repository.BillRepository;
 import com.example.TanKhoaLearningCenterBE.repository.ParentRepository;
 import com.example.TanKhoaLearningCenterBE.repository.StudentRepository;
 import com.example.TanKhoaLearningCenterBE.web.rest.request.CreateBillRequest;
+import com.example.TanKhoaLearningCenterBE.web.rest.response.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +49,19 @@ public class BillServiceImpl implements BillService {
         billDetailRepository.save(billDetail);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new BillDTO(saveBilld));
+    }
+
+    @Override
+    public ResponseEntity<PageResponse<BillDTO>> getAll(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BillEntity> bills = billRepository.findAll(pageable);
+        List<BillDTO> rows = bills.getContent().stream().map(BillDTO::new).toList();
+        var response = new PageResponse<BillDTO>();
+        response.setCount(bills.getTotalElements());
+        response.setRows(rows);
+        response.setPage(page);
+        response.setSize(size);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

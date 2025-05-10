@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface BillDetailService {
     ResponseEntity<BillDetailDTO> update(UUID id, UpdateBillDetailsRequest request);
+
+    ResponseEntity<BillDetailDTO> get(UUID id);
 }

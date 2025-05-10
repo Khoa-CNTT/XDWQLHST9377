@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -46,5 +47,15 @@ public class BillDetailServiceImpl implements BillDetailService {
         BillDetailEntity saved = billDetailRepository.save(billDetail);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new BillDetailDTO(saved));
+    }
+
+    @Override
+    public ResponseEntity<BillDetailDTO> get(UUID id) {
+        Optional<BillDetailEntity> optionalBillDetail = billDetailRepository.findById(id);
+        if (optionalBillDetail.isPresent()) {
+            billDetailRepository.findById(id);
+            return ResponseEntity.ok(new BillDetailDTO(optionalBillDetail.get()));
+        }
+        throw new RuntimeException("Bill not found");
     }
 }
