@@ -5,18 +5,20 @@ import { removeLocalData, setLocalData } from "../../services/localStorage";
 import { isLoggedInText, roles } from "../../utils/constants";
 import authSlice from "./slice";
 import alertSlice from "../alert/slice";
+import { set } from "lodash";
 
 function* loginSaga({ payload }) {
   try {
     const response = yield call(login, payload);
     if (response.status === 200) {
       const data = response.data;
-      const { accessToken, role } = data;
+      const { accessToken, role, id } = data;
       console.log("****data saga: ", data);
       if (accessToken) {
         setLocalData(isLoggedInText, true);
         setLocalData("accessToken", accessToken);
         setLocalData(roles, role);
+        setLocalData("accountId", id);
         yield put(authSlice.actions.loginSuccess(role));
         // window.location.reload();
         yield put(alertSlice.actions.success("Đăng nhập thành công"));
@@ -49,6 +51,7 @@ function* logoutSaga() {
     removeLocalData(isLoggedInText);
     removeLocalData("accessToken");
     removeLocalData(roles);
+    removeLocalData("userId");
     window.location.reload();
   }
 }

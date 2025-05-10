@@ -9,8 +9,9 @@ const api = createApiService({
 const getCurrentLoggedInUser = () => {
   const token = getLocalData("accessToken");
   const role = getLocalData(roles);
-  if (token && role) {
-    return { token, role };
+  const id = getLocalData("accountId");
+  if (token && role && id) {
+    return { token, role, id };
   }
   return null;
 };
@@ -25,8 +26,13 @@ export const create = (payload) => {
 
 export const update = (payload) => {
   return api.makeRequest({
-    url: `/api/account/update/${payload}`,
+    url: `/api/account/update/${payload.id}`,
     method: "PUT",
+    data: {
+      username: payload.username,
+      password: payload.password,
+      role: payload.role,
+    },
   });
 };
 
@@ -40,20 +46,17 @@ export const getall = (payload) => {
 
 export const deleteAccount = (payload) => {
   const token = getLocalData("accessToken");
+
   const loggedInUser = getCurrentLoggedInUser();
 
-  if (!token) {
-    console.error("No accessToken found!");
-    return;
+  if (!token || !loggedInUser) {
+    console.error("Token hoặc thông tin người dùng không tồn tại!");
+    return Promise.reject("Không thể xác thực người dùng.");
   }
 
-  if (
-    loggedInUser &&
-    loggedInUser.token === token &&
-    loggedInUser.role === "ADMIN"
-  ) {
-    console.warn("Không thể xóa tài khoản ADMIN hiện tại đang đăng nhập.");
-    return;
+  if (payload === loggedInUser.id) {
+    console.warn("Không thể xóa tài khoản hiện tại đang đăng nhập.");
+    return Promise.reject("Bạn không thể tự xóa chính mình.");
   }
 
   return api.makeRequest({

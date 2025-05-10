@@ -3,91 +3,67 @@ import { Table, Button, Typography, message, Input, Space } from "antd";
 import { DeleteFilled, EditFilled, SearchOutlined } from "@ant-design/icons";
 import {
   getall,
-  deleteAccount,
   create,
-  update,
   search,
-} from "../../../services/account.service";
+  deleteParent,
+} from "../../../services/parent.service";
 import AddStudentDrawer from "../../../components/drawers";
 import { debounce } from "lodash";
-import EditModal from "../../../components/modal";
 
-const ManageAccounts = () => {
+const ManageParents = () => {
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
-  console.log("***seletedRowData: ", selectedRowData);
-
-  const fetchAccounts = async () => {
+  const fetchParents = async () => {
     setLoading(true);
     try {
       const res = await getall();
-      // console.log("**res", res);
-      const accounts = res?.data?.rows || [];
+      console.log("**res", res);
+      const parents = res?.data?.rows || [];
       setDataSource(
-        accounts.map((item, index) => ({
-          key: item.accountId || `account-${index}`,
+        parents.map((item, index) => ({
+          key: item.parentId || `parent-${index}`,
           ...item,
         }))
       );
     } catch (error) {
-      console.error("Failed to fetch accounts:", error);
+      console.error("Failed to fetch parents:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditClick = (record) => {
-    setSelectedRowData(record);
-    setIsModalOpen(true);
-    // console.log("***data row ", record);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setSelectedRowData(null);
-  };
-
-  const handleDelete = async (id, role) => {
+  const handleDelete = async (id) => {
     try {
-      await deleteAccount(id, role);
-      message.success("Xóa tài khoản thành công!");
-      fetchAccounts();
+      await deleteParent(id);
+      message.success("Xóa phụ huynh thành công!");
+      fetchParents();
     } catch (error) {
       console.error("Xóa thất bại:", error);
-      message.error("Xóa tài khoản thất bại!");
+      message.error("Xóa phụ huynh thất bại!");
     }
   };
 
-  const handleUpdate = async (updatedData) => {
-    try {
-      await update({
-        id: updatedData.id,
-        username: updatedData.username,
-        password: updatedData.password,
-        role: updatedData.role,
-      });
-      message.success("Cập nhật tài khoản thành công!");
-      fetchAccounts();
-      setIsModalOpen(false); // Đóng modal sau khi thành công
-      setSelectedRowData(null); // Reset selected row data
-    } catch (error) {
-      console.error("Cập nhật thất bại:", error);
-      message.error("Cập nhật tài khoản thất bại!");
-    }
-  };
+  //   const handleUpdate = async (id) => {
+  //     try {
+  //       await update(id);
+  //       message.success("Cập nhật sinh viên thành công!");
+  //       fetchStudents();
+  //     } catch (error) {
+  //       console.error("Cập nhật thất bại:", error);
+  //       message.error("Cập nhật sinh viên thất bại!");
+  //     }
+  //   };
 
   const handleSearch = async (name) => {
     try {
       const res = await search(name);
-      const accounts = res?.data || [];
+      const parents = res?.data || [];
       setDataSource(
-        accounts.map((item, index) => ({
-          key: item.accountId || `account-${index}`,
+        parents.map((item, index) => ({
+          key: item.parentId || `parent-${index}`,
           ...item,
         }))
       );
@@ -101,12 +77,12 @@ const ManageAccounts = () => {
   const handleCreate = async (values) => {
     try {
       await create(values);
-      message.success("Thêm tài khoản thành công!");
+      message.success("Thêm phụ huynh thành công!");
       setOpenDrawer(false);
-      fetchAccounts();
+      fetchParents();
     } catch (error) {
       console.error("Thêm thất bại:", error);
-      message.error("Thêm tài khoản thất bại!");
+      message.error("Thêm phụ huynh thất bại!");
     }
   };
 
@@ -120,9 +96,9 @@ const ManageAccounts = () => {
 
   const columns = [
     { title: "Id", dataIndex: "id", key: "id", fixed: "left" },
-    { title: "Tên đăng nhập", dataIndex: "username", key: "username" },
-    { title: "Mật khẩu", dataIndex: "password", key: "password" },
-    { title: "Vai Trò", dataIndex: "role", key: "role" },
+    { title: "Họ tên", dataIndex: "name", key: "name" },
+    { title: "Số điện thoại", dataIndex: "phoneNumber", key: "phoneNumber" },
+    { title: "Email", dataIndex: "email", key: "email" },
     {
       title: "Hành đông",
       key: "action",
@@ -130,10 +106,10 @@ const ManageAccounts = () => {
       width: 110,
       render: (_, record) => (
         <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
-          <Typography.Link onClick={() => handleDelete(record.id, record.role)}>
+          <Typography.Link onClick={() => handleDelete(record.id)}>
             <DeleteFilled style={{ fontSize: "18px", color: "red" }} />
           </Typography.Link>
-          <Typography.Link onClick={() => handleEditClick(record)}>
+          <Typography.Link>
             <EditFilled style={{ fontSize: "18px", color: "#1890ff" }} />
           </Typography.Link>
         </div>
@@ -150,7 +126,7 @@ const ManageAccounts = () => {
   };
 
   useEffect(() => {
-    fetchAccounts();
+    fetchParents();
   }, []);
 
   return (
@@ -164,8 +140,8 @@ const ManageAccounts = () => {
       >
         <Space.Compact>
           <Input
-            style={{ width: 250 }}
-            placeholder="Search Accounts"
+            style={{ width: "70%" }}
+            placeholder="Tìm kiếm"
             prefix={<SearchOutlined />}
             value={searchText}
             onChange={handleSearchInputChange}
@@ -173,33 +149,27 @@ const ManageAccounts = () => {
         </Space.Compact>
         <Button
           type="primary"
+          icon={<SearchOutlined />}
+          style={{ marginBottom: "8px" }}
           onClick={showDrawer}
-          style={{ marginLeft: "8px" }}
         >
-          Thêm tài khoản
+          Thêm phụ huynh
         </Button>
       </div>
       <Table
         columns={columns}
         dataSource={dataSource}
-        loading={loading}
         scroll={{ x: 1500 }}
         sticky={{ offsetHeader: 64 }}
         pagination={true}
+        loading={loading}
       />
       <AddStudentDrawer
         open={openDrawer}
         onClose={closeDrawer}
         onCreate={handleCreate}
       />
-      <EditModal
-        open={isModalOpen}
-        handleClose={handleModalClose}
-        rowData={selectedRowData}
-        onConfirm={handleUpdate}
-      />
     </div>
   );
 };
-
-export default ManageAccounts;
+export default ManageParents;

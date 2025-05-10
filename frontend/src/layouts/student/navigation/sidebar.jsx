@@ -3,8 +3,14 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
+import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
+import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { tokens } from "../../../themes/theme";
 import logo from "../../../assets/imgs/small45.png";
 
@@ -74,7 +80,7 @@ const AppSider = ({ onMenuItemClick }) => {
                   <img src={logo} />
                 </div>
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMIN
+                  STUDENT
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -100,7 +106,7 @@ const AppSider = ({ onMenuItemClick }) => {
                   Harry Nguyen
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin
+                  Student
                 </Typography>
               </Box>
             </Box>
@@ -109,12 +115,12 @@ const AppSider = ({ onMenuItemClick }) => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Tổng quan  "
-              to="/admin"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <SubMenu label="Tài khoản" icon={<PersonOutlinedIcon />}>
+            <SubMenu label="Thông tin cá nhân" icon={<PersonOutlinedIcon />}>
               <Item
                 title="Quản lý tài khoản"
                 to="/manageAccounts"
@@ -123,49 +129,47 @@ const AppSider = ({ onMenuItemClick }) => {
                 setSelected={setSelected}
                 onClickKey={() => onMenuItemClick({ key: "manageAccounts" })}
               />
-              {/* <Item
-                title="Accounts Information"
-                to="/contacts"
-                icon={<ContactsOutlinedIcon />}
+              <Item
+                title="Mật khẩu"
+                to="/changePassword"
+                // icon={<ContactsOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              /> */}
+              />
             </SubMenu>
 
-            <SubMenu label="Học sinh">
-              <Item
-                title="Quản lý học sinh"
-                to="/manageStudents"
-                icon={<PeopleOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-                onClickKey={() => onMenuItemClick({ key: "manageStudents" })}
-              />
-              {/* <Item
+            <Item
+              title="Lịch học"
+              to="/calendar"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+              onClickKey={() => onMenuItemClick({ key: "manageStudents" })}
+            />
+            {/* <Item
                 title="Calendar"
                 to="/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               /> */}
-            </SubMenu>
 
-            <SubMenu label="Giáo viên">
+            <SubMenu label="Học tập">
               <Item
-                title="Quản lý giáo viên"
-                to="/manageTeachers"
+                title="Đăng ký môn học"
+                to="/regsister"
                 // icon={<BarChartOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
-              {/* <Item
-                title="Pie Chart"
-                to="/pie"
-                icon={<PieChartOutlineOutlinedIcon />}
+              <Item
+                title="Bảng điểm"
+                to="/record"
+                // icon={<PieChartOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* <Item
                 title="Line Chart"
                 to="/line"
                 icon={<TimelineOutlinedIcon />}
@@ -181,40 +185,22 @@ const AppSider = ({ onMenuItemClick }) => {
               /> */}
             </SubMenu>
 
-            <SubMenu label="Phụ huynh">
+            <SubMenu label="Học phí">
               <Item
-                title="Quản lý phụ huỵnh"
-                to="/manageParents"
+                title="Hoá đơn học phí"
+                to="/bills"
                 // icon={<TimelineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
                 onClickKey={() => onMenuItemClick({ key: "manageParents" })}
               />
-              {/* <Item
-                title="Geography Chart"
-                to="/geography"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              /> */}
-            </SubMenu>
-
-            <SubMenu label="Hoá đơn">
               <Item
-                title="Quản lý hoá đơn"
-                to="/manageBills"
-                // icon={<TimelineOutlinedIcon />}
+                title="Lịch sử thanh toán"
+                to="/paymentHistory"
+                // icon={<MapOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-                onClickKey={() => onMenuItemClick({ key: "manageBills" })}
               />
-              {/* <Item
-                title="Geography Chart"
-                to="/geography"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              /> */}
             </SubMenu>
           </Box>
         </Menu>

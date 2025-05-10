@@ -10,13 +10,21 @@ import {
 
 import { useEffect } from "react";
 import Error404 from "../screens/errorpage/Error";
-import { isLoggedInText, roles } from "../utils/constants";
+import {
+  admin,
+  isLoggedInText,
+  parent,
+  roles,
+  student,
+  teacher,
+} from "../utils/constants";
 import { getLocalData } from "../services/localStorage";
 import Dashboard from "../layouts/admin";
 import SignInSide from "../screens/login/login.screen";
 import HomePage from "../screens/home/home.screen";
 import { useSelector } from "react-redux";
 import AdminDashboard from "../layouts/admin";
+import StudentDashboard from "../layouts/student";
 
 function isLoggedIn() {
   return getLocalData(isLoggedInText);
@@ -65,14 +73,17 @@ function MainRoutes() {
         const role = getLocalData(roles);
         console.log("***role: ", role);
         switch (role) {
-          case "ADMIN":
+          case admin:
             navigate("/admin", { replace: true });
             break;
-          case "STUDENT":
+          case student:
             navigate("/student", { replace: true });
             break;
-          case "TEACHER":
+          case teacher:
             navigate("/teacher", { replace: true });
+            break;
+          case parent:
+            navigate("/parent", { replace: true });
             break;
           default:
             navigate("/home", { replace: true });
@@ -109,7 +120,7 @@ function MainRoutes() {
         <Route
           path="/admin"
           element={
-            <RoleBasedRoute allowedRoles={["ADMIN"]}>
+            <RoleBasedRoute allowedRoles={[admin]}>
               <AdminDashboard />
             </RoleBasedRoute>
           }
@@ -117,8 +128,16 @@ function MainRoutes() {
         <Route
           path="/admin/*"
           element={
-            <RoleBasedRoute allowedRoles={["ADMIN"]}>
+            <RoleBasedRoute allowedRoles={[admin]}>
               <Dashboard />
+            </RoleBasedRoute>
+          }
+        />
+        <Route
+          path="/student"
+          element={
+            <RoleBasedRoute allowedRoles={[student]}>
+              <StudentDashboard />
             </RoleBasedRoute>
           }
         />
