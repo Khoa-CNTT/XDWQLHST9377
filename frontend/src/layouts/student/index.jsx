@@ -11,7 +11,6 @@ import "./index.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import ManageAccounts from "./page/account.list";
 import ManageParents from "./page/parent.list";
-import ManageBills from "./page/bill.list";
 
 const componentMap = {
   dashboard: () => (
@@ -25,10 +24,9 @@ const componentMap = {
   manageStudents: () => <ManageStudents />,
   manageAccounts: () => <ManageAccounts />,
   manageParents: () => <ManageParents />,
-  manageBills: () => <ManageBills />,
 };
 
-const AdminDashboard = () => {
+const StudentDashboard = () => {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState("dashboard");
@@ -101,4 +99,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default StudentDashboard;
