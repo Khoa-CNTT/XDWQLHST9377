@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class StudentNotFoundException extends RuntimeException {
     private static final Logger logger = LoggerFactory.getLogger(StudentNotFoundException.class);
 
-
     public StudentNotFoundException() {
         super(ErrorMessages.STUDENT_NOT_FOUNT.getMessage());
         logger.error("Exception " + getClass() + " thrown.");
